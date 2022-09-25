@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BD21C923-03BA-B0C9-9E9C-D80DD82C5E7A}</ProjectGuid>
+    <ProjectGuid>{CAEB4B09-B9A3-B679-89C2-198271199CBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Recorder</AssemblyName>
@@ -603,11 +603,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
-      <Project>{0A923273-CF1E-742D-A8C3-239383BB6407}</Project>
+      <Project>{13E4D6F9-5D99-EF3F-B4F0-636AAB91AEC4}</Project>
       <Name>Unity.Timeline.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{B485D0D0-ABF3-D096-2132-9C17D5B2DC22}</Project>
+      <Project>{0D59CB5B-18EE-1DFE-5251-DE28694AAE3A}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
   </ItemGroup>

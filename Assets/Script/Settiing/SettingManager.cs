@@ -3,35 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingManager : MonoBehaviour
+namespace Mal
 {
-    public void onclick()
+    public class SettingManager : MonoBehaviour
     {
-        if (gameObject.activeSelf == false)
+        public void onclick()
         {
-            gameObject.SetActive(true);
-            GameObject[] Object = GameObject.FindGameObjectsWithTag("div");
-            GameObject[] btn= GameObject.FindGameObjectsWithTag("divbtn");
+            if (gameObject.activeSelf == false)
+            {
+                gameObject.SetActive(true);
+                GameObject[] Object = GameObject.FindGameObjectsWithTag("div");
+                GameObject[] btn = GameObject.FindGameObjectsWithTag("divbtn");
 
-            foreach (GameObject div in Object)
-            {
-                if (gameObject.name != div.name)
+                foreach (GameObject div in Object)
                 {
-                    div.SetActive(false);
-                }                
-            }
-            foreach (GameObject divbtn in btn)
-            {
-                Image activeImg = divbtn.GetComponent<Image>();
-                if (gameObject.name == divbtn.name)
-                {
-                    activeImg.enabled = true;
+                    if (gameObject.name != div.name)
+                    {
+                        div.SetActive(false);
+                    }
                 }
-                if (gameObject.name != divbtn.name)
+                foreach (GameObject divbtn in btn)
                 {
-                    activeImg.enabled = false;
+                    Image activeImg = divbtn.GetComponent<Image>();
+                    if (gameObject.name == divbtn.name)
+                    {
+                        activeImg.enabled = true;
+                    }
+                    if (gameObject.name != divbtn.name)
+                    {
+                        activeImg.enabled = false;
+                    }
                 }
             }
         }
     }
 }
+

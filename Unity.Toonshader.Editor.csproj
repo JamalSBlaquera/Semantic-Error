@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{19626B45-C891-EBC8-BD0F-B16E949BA6FF}</ProjectGuid>
+    <ProjectGuid>{50085254-978A-A76B-B42A-EC7BB3AF6D80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Toonshader.Editor</AssemblyName>
@@ -684,23 +684,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Toonshader.csproj">
-      <Project>{C35C467E-D199-0B62-AC0A-F8248F7035C1}</Project>
+      <Project>{3C609ADC-3BAB-1348-803D-460FAA1C5A93}</Project>
       <Name>Unity.Toonshader</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{673DE4D7-F410-01BD-17C4-D416968EA1D8}</Project>
+      <Project>{C0A6C7BC-E778-B7F6-E29C-92323722ACF1}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{1DA8108C-4A82-233E-8835-36F921119307}</Project>
+      <Project>{8F2C54A7-F003-4E48-3F4C-181705814387}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{2EF12F1E-D883-E8B2-99B8-3795A56984A8}</Project>
+      <Project>{01339922-CB2B-682F-12EF-DE519898CC89}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{2B60592A-AD19-C14D-8116-A112B6FE521B}</Project>
+      <Project>{71C86B4E-0A54-0AC7-9DE0-AB98EEEB9975}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>

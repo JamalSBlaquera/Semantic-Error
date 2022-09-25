@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{44541B7C-2345-1A64-4B67-608E115D8928}</ProjectGuid>
+    <ProjectGuid>{47F32126-BE1C-38A4-A185-24489BF0E6F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Toonshader</AssemblyName>
@@ -648,11 +648,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.Player.csproj">
-      <Project>{4A6E802F-24E2-80B8-50AE-9FA0DBAF6316}</Project>
+      <Project>{DC7EEE86-4B8D-17D2-F674-56C1B23392B4}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{B485D0D0-ABF3-D096-2132-9C17D5B2DC22}</Project>
+      <Project>{0D59CB5B-18EE-1DFE-5251-DE28694AAE3A}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
   </ItemGroup>

@@ -3,63 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class snapRect : MonoBehaviour
+namespace Mal
 {
-    InputManager inputManager;
-
-    [SerializeField] public Transform content;
-    public float[] position;
-
-    public GameObject[] element;
-
-    float distance;
-    public Scrollbar scrollbar;
-    float oldpos;
-
-    // Start is called before the first frame update
-    void Start()
+    public class snapRect : MonoBehaviour
     {
+        InputManager inputManager;
 
-        inputManager = GetComponent<InputManager>();
+        [SerializeField] public Transform content;
+        public float[] position;
 
-        element = GameObject.FindGameObjectsWithTag("scollContent");
+        public GameObject[] element;
 
-        distance = 1f / (content.childCount - 1);
-        position = new float[content.childCount];
+        float distance;
+        public Scrollbar scrollbar;
+        float oldpos;
 
-        for (int i = 0; i < content.childCount; i++)
+        // Start is called before the first frame update
+        void Start()
         {
-            position[i] = distance * i;
-            
-        }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (inputManager.mouseclick)
-        {
-            oldpos = scrollbar.value;
-            for (int i = 0; i < content.childCount; i++) {
+            inputManager = GetComponent<InputManager>();
 
-                if (oldpos < position[i])
-                {
+            element = GameObject.FindGameObjectsWithTag("scollContent");
 
-                    RectTransform child = element[i].transform.GetComponentInChildren<RectTransform>();
-                    child.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1920f);
-                }
-            }
-               
-        } else
-        {
-            for (int i = 0; i < position.Length; i++)
+            distance = 1f / (content.childCount - 1);
+            position = new float[content.childCount];
+
+            for (int i = 0; i < content.childCount; i++)
             {
-                if (oldpos < position[i] + (distance / 2 ) &&  oldpos > position[i] - (distance /2))
+                position[i] = distance * i;
+
+            }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (inputManager.mouseclick)
+            {
+                oldpos = scrollbar.value;
+                for (int i = 0; i < content.childCount; i++)
                 {
-                  
-                    scrollbar.value = Mathf.Lerp(scrollbar.value, position[i], 0.3f);
+
+                    if (oldpos < position[i])
+                    {
+
+                        RectTransform child = element[i].transform.GetComponentInChildren<RectTransform>();
+                        child.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1920f);
+                    }
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < position.Length; i++)
+                {
+                    if (oldpos < position[i] + (distance / 2) && oldpos > position[i] - (distance / 2))
+                    {
+
+                        scrollbar.value = Mathf.Lerp(scrollbar.value, position[i], 0.3f);
+                    }
                 }
             }
         }
     }
 }
+

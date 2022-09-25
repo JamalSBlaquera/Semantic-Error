@@ -2,271 +2,223 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
-{
-    private InputManager _inputManager;
-    private CharacterController _characterController;
-    public GameObject _mainCamera;
-    private Animator _animator;
-
-    [Header("Character Stats")]
-    [SerializeField]
-    private PlayerStat _stamina;
-    private float initStamina = 100;
-
-    private bool _hasAnimator;
-
-    [Header("Action States")]
-    [SerializeField] protected bool _isWalking;
-    [SerializeField] protected bool _isSprinting;
-    [SerializeField] protected bool _isSprintJump;
-
-    [Header("Player Movetion")]
-    public float WalkSpeed;
-    public float SprintSpeed;
-    private float triggerSpeed;
-    private float currentHorizontalSpeed;
-    public float SpeedChange = 10.0f;
-    public float RotationSmoothTime = 0.12f;
-    public float Gravity = -15.0f;
-    public float FallingTimeout = 0.15f;
-    public float JumpHeight = 1.2f;
-    public float JumpingTimeout = 0.50f;
-
-    [Header("Charater GroundCheck and Gravity")]
-    public float groundedOffset = -0.14f;
-    public LayerMask groundLayers;
-    public bool isGrounded = true;
-    public float GroundedRadius = 0.28f;
-
-    //player 
-    private float _speed;
-    private float _animationBlendMove;
-    private float _targetRotation;
-    private float _rotationVelocity;
-    private float _verticalVelocity;
-    private float _terminalVelocity = 53.0f;
-
-    //TimeOut
-    private float _fallingTimeoutDelta;
-    private float _jumpingTimeoutDelta;
-
-    protected virtual void Awake()
+namespace Mal {
+    public class Character : MonoBehaviour
     {
-        
-    }
+        private static Character Instance;
 
-    protected virtual void Start()
-    {
-        _hasAnimator = TryGetComponent(out _animator);
-        _inputManager = GetComponent<InputManager>();
-        _characterController = GetComponent<CharacterController>();
-
-        _stamina.Initialize(initStamina, initStamina);
-
-        _jumpingTimeoutDelta = JumpingTimeout;
-        _fallingTimeoutDelta = FallingTimeout;
-    }
-    protected virtual void Update()
-    {
-        _hasAnimator = TryGetComponent(out _animator);
-    }
-    private void FixedUpdate()
-    {
-        _hasAnimator = TryGetComponent(out _animator);
-        HanlderGravity();
-        HanlderJumpAndSprintJump();
-        HandlerMovement();
-        HanlderGroundedCheck();
-    }
-
-    #region Stamina
-    private void HalderStamina()
-    {
-        if (_inputManager.sprint)
+        public static Character myInstance
         {
-            triggerSpeed = SprintSpeed;
-            _isSprinting = true;
-            if (!_isSprintJump)
+            get
             {
-                _stamina.myCurrentValue -= 0.5f;
-            }
-            if (_stamina.myCurrentValue == 0)
-            {
-                triggerSpeed = WalkSpeed;
-                _inputManager.sprint = false;
-            }
-        }
-        else
-        {
-            _stamina.myCurrentValue += 0.5f;
-        }
-    }
-     
-#endregion
-
-#region Movement
-private void HandlerMovement()
-    {
-        triggerSpeed = WalkSpeed;
-
-        HalderStamina();
-
-        if (_inputManager.move == Vector2.zero) triggerSpeed = 0.0f;
-
-        currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
-
-        _animationBlendMove = Mathf.Lerp(_animationBlendMove, triggerSpeed, Time.deltaTime * SpeedChange);
-        if (_animationBlendMove >= 2.1f) 
-        {
-            _isSprinting = true;
-            _isWalking = false;
-        } else if (_animationBlendMove > 0.1f)
-        {
-            _isWalking = true;
-            _isSprinting = false;
-        } else
-        {
-            _isWalking = false;
-            _isSprinting = false;
-            _animationBlendMove = 0f;
-        }
-
-        Vector3 inputDeriction = new Vector3(_inputManager.move.x, 0, _inputManager.move.y).normalized;
-        if (_inputManager.move != Vector2.zero)
-        {
-            _targetRotation = Mathf.Atan2(inputDeriction.x, inputDeriction.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-            float moveRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-            transform.rotation = Quaternion.Euler(0, moveRotation, 0);
-        }
-
-        Vector3 targetDerection = Quaternion.Euler(0, _targetRotation, 0) * Vector3.forward;
-        _characterController.Move(targetDerection.normalized * Time.deltaTime * triggerSpeed +
-            new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
-
-        if (_hasAnimator)
-        {
-            _animator.SetFloat("Speed", _animationBlendMove);
-        }
-
-    }
-
-
-    #endregion
-
-    #region Jump And Gravity
-
-    private void HanlderJumpAndSprintJump()
-    {
-        if (isGrounded)
-        {
-            _fallingTimeoutDelta = FallingTimeout;
-
-            if (_hasAnimator)
-            {
-                _animator.SetBool("Jump", false);
-                _animator.SetBool("SprintJump", false);
-                _animator.SetBool("FreeFall", false);
-            }
-            if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
-
-            if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && !_isSprinting)
-            {
-                if (_hasAnimator)
-                {   
-                   _animator.SetTrigger("Jump");
+                if (Instance == null)
+                {
+                    Instance = FindObjectOfType<Character>();
                 }
-                _inputManager.sprint = false;
+                return Instance;
             }
+        }
 
-            if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && _isSprinting)
+        private InputManager _inputManager;
+        private CharacterController _characterController;
+        [HideInInspector]
+        public GameObject _mainCamera;
+        private Animator _animator;
+        [HideInInspector]
+        public Transform myTransform;
+        public Vector2 InputMove;
+        public bool InputSprint;
+
+        [Header("Character Stats")]
+        [SerializeField]
+        public PlayerStat _stamina;
+        private float initStamina = 100;
+
+        public bool _hasAnimator;
+
+        [Header("Action States")]
+        [SerializeField] public bool _isWalking;
+        [SerializeField] public bool _isSprinting;
+        [SerializeField] public bool _isSprintJump;
+
+        [Header("Player Movetion")]
+        public float WalkSpeed;
+        public float SprintSpeed;
+        public float SpeedChange = 10.0f;
+        public float RotationSmoothTime = 0.12f;
+
+        [HideInInspector]
+        public float triggerSpeed;
+        public float FallingTimeout = 0.15f;
+        public float JumpHeight = 1.2f;
+        public float JumpSprintHeight = 2f;
+        public float JumpingTimeout = 0.50f;
+
+        [Header("Charater GroundCheck and Gravity")]
+        public float Gravity = -15.0f;
+        public float groundedOffset = -0.14f;
+        public LayerMask groundLayers;
+        public bool isGrounded = true;
+        public float GroundedRadius = 0.28f;
+
+        [HideInInspector]
+        public float _verticalVelocity;
+        private float _terminalVelocity = 53.0f;
+
+        //TimeOut
+        private float _fallingTimeoutDelta;
+        private float _jumpingTimeoutDelta;
+
+
+        private float _animationBlendMove;
+        private float _motionSpeed = 1f;
+        protected virtual void Awake()
+        {
+
+        }
+
+        protected virtual void Start()
+        {
+            _hasAnimator = TryGetComponent(out _animator);
+            _inputManager = GetComponent<InputManager>();
+            _characterController = GetComponent<CharacterController>();
+
+            _stamina.Initialize(initStamina, initStamina);
+
+            _jumpingTimeoutDelta = JumpingTimeout;
+            _fallingTimeoutDelta = FallingTimeout;
+        }
+        protected virtual void Update()
+        {
+            _hasAnimator = TryGetComponent(out _animator);
+        }
+        private void FixedUpdate()
+        {
+            _hasAnimator = TryGetComponent(out _animator);
+            HanlderGravity();
+            HanlderJumpAndSprintJump();
+            /*HandlerMovement();*/
+            HanlderGroundedCheck();
+           /* HandleRotation();*/
+        }
+
+        #region Jump And Gravity
+
+        private void HanlderJumpAndSprintJump()
+        {
+            if (isGrounded)
             {
+                _fallingTimeoutDelta = FallingTimeout;
+
                 if (_hasAnimator)
                 {
-                    _isSprintJump = true;
-                    _animator.SetBool("SprintJump", true);
-                    _stamina.myCurrentValue += 0.5f;
+                    _animator.SetBool("Jump", false);
+                    _animator.SetBool("SprintJump", false);
+                    _animator.SetBool("FreeFall", false);
                 }
-               
-            } else
-            {
-                _isSprintJump = false;
-            }
-            
+                if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
 
-            if (_jumpingTimeoutDelta >= 0.0f) _jumpingTimeoutDelta -= Time.deltaTime;
-        } else
-        {
-            _jumpingTimeoutDelta = JumpingTimeout;
+                if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && !_isSprinting)
+                {
+                    if (_hasAnimator)
+                    {
+                        _animator.SetTrigger("Jump");
+                    }
+                    _inputManager.sprint = false;
+                }
 
-            if (_fallingTimeoutDelta >= 0.0f)
-            {
-                _fallingTimeoutDelta -= Time.deltaTime;
+                if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && _isSprinting)
+                {
+                    if (_hasAnimator)
+                        _isSprintJump = true;
+                        _animator.SetBool("SprintJump", true);
+                        _stamina.myCurrentValue += 0.5f;
+                }
+                else
+                {
+                    _isSprintJump = false;
+                }
+
+
+                if (_jumpingTimeoutDelta >= 0.0f) _jumpingTimeoutDelta -= Time.deltaTime;
             }
             else
             {
-                if (_hasAnimator)
+                _jumpingTimeoutDelta = JumpingTimeout;
+
+                if (_fallingTimeoutDelta >= 0.0f)
                 {
-                    _animator.SetBool("FreeFall", true);
+                    _fallingTimeoutDelta -= Time.deltaTime;
                 }
+                else
+                {
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool("FreeFall", true);
+                    }
+                }
+                _inputManager.jump = false;
             }
-            _inputManager.jump = false;
         }
-    }
-    public void addJumpForce()
-    {
-        _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-    }
-    public void addSprintJumpForce()
-    {
-        _verticalVelocity = Mathf.Sqrt(JumpHeight * -1f * Gravity);
-    }
-    #endregion
-
-    #region  Gravity
-
-    private void HanlderGravity()
-    {
-        if (_verticalVelocity < _terminalVelocity)
+        public void addJumpForce()
         {
-            _verticalVelocity += Gravity * Time.deltaTime;
+            _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
         }
-    }
-
-    #endregion
-
-
-    #region Grounded Check
-
-    private void HanlderGroundedCheck()
-    {
-
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset,
-            transform.position.z);
-        isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers,
-            QueryTriggerInteraction.Ignore);
-
-        // update animator if using character
-        if (_hasAnimator)
+        public void addSprintJumpForce()
         {
-            _animator.SetBool("Grounded", isGrounded);
+            _verticalVelocity = Mathf.Sqrt(JumpSprintHeight * -2f * Gravity);
         }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+        #endregion
 
-        if (isGrounded) Gizmos.color = transparentGreen;
-        else Gizmos.color = transparentRed;
+        #region  Gravity
 
-        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-        Gizmos.DrawSphere(
-            new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z),
-            GroundedRadius);
+        private void HanlderGravity()
+        {
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += Gravity * Time.deltaTime;
+            }
+        }
+
+        #endregion
+
+
+        #region Grounded Check
+
+        private void HanlderGroundedCheck()
+        {
+
+
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset,
+                transform.position.z);
+            isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers,
+                QueryTriggerInteraction.Ignore);
+
+            // update animator if using character
+
+            if (_hasAnimator)
+            {
+                _animator.SetBool("Grounded", isGrounded);
+            } 
+        }
+        private void OnDrawGizmosSelected()
+        {
+            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+            if (isGrounded) Gizmos.color = transparentGreen;
+            else Gizmos.color = transparentRed;
+
+            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+            Gizmos.DrawSphere(
+                new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z),
+                GroundedRadius);
+        }
+        #endregion
     }
-    #endregion
 }
+
+
 
 
 #region Copy

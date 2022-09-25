@@ -3,36 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class LoadIntro : MonoBehaviour
+namespace Mal
 {
-    Animator animator;
-    PlayableDirector playableDirector;
-    private InputManager inputManager;
-    
-
-    public void Awake()
+    public class LoadIntro : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        inputManager = GetComponent<InputManager>();
-        playableDirector = GetComponent<PlayableDirector>();
-    }
-
-    public void Update()
-    {
-        startload();
-    }
+        Animator animator;
+        PlayableDirector playableDirector;
+        private InputManager inputManager;
 
 
-    public void startload()
-    {
-        if(inputManager.start)
+        public void Awake()
         {
-            playableDirector.Play();
-            animator.enabled = true;
+            animator = GetComponent<Animator>();
+            inputManager = GetComponent<InputManager>();
+            playableDirector = GetComponent<PlayableDirector>();
+        }
+
+        public void Update()
+        {
+            startload();
+        }
+
+
+        public void startload()
+        {
+            if (inputManager.start)
+            {
+                playableDirector.Play();
+                animator.enabled = true;
+            }
+        }
+        public void stopload()
+        {
+
         }
     }
-    public void stopload()
-    {
-        
-    }
 }
+

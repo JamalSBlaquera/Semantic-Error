@@ -3,92 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStat : MonoBehaviour
+namespace Mal
 {
-    private static PlayerStat instance;
-
-    public static PlayerStat myInstance
+    public class PlayerStat : MonoBehaviour
     {
-        get
+        private static PlayerStat instance;
+
+        public static PlayerStat myInstance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<PlayerStat>();
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<PlayerStat>();
+                }
+                return instance;
             }
-            return instance;
         }
-    }
 
-    private Image content;
-    [SerializeField] private float lerpSpeed;
-/*    [SerializeField] private Text statValue;
-*/
-    private float currentFill;
-    private float overflow;
-    public float myMaxValue { get; set; }
+        private Image content;
+        [SerializeField] private float lerpSpeed;
+        /*    [SerializeField] private Text statValue;
+        */
+        private float currentFill;
+        private float overflow;
+        public float myMaxValue { get; set; }
 
-    private float currentValue;
+        private float currentValue;
 
-    public bool IsFull
-    {
-        get
+        public bool IsFull
         {
-            return content.fillAmount == 1;
-        }
-    }
-    public float myOverflow 
-    { 
-        get
-        {
-            float tmp = overflow;
-            overflow = 0;
-            return tmp;
-        }
-    }
-    public float myCurrentValue
-    {
-        get
-        {
-            return currentValue;
-        }
-        set
-        {
-            if (value > myMaxValue)
+            get
             {
-                overflow = value - myMaxValue;
-                currentValue = myMaxValue;
-            } else if (value < 0)
-            {
-                currentValue = 0;
-            } else
-            {
-                currentValue = value;
+                return content.fillAmount == 1;
             }
-            currentFill = currentValue / myMaxValue;
-
-           /* statValue.text = currentValue + "/" + myMaxValue;*/
         }
-    }
-
-    private void Start()
-    {
-        content = GetComponent<Image>();
-    }
-    private void Update()
-    {
-        if (currentFill != content.fillAmount)
+        public float myOverflow
         {
-            content.fillAmount = Mathf.MoveTowards(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
+            get
+            {
+                float tmp = overflow;
+                overflow = 0;
+                return tmp;
+            }
         }
-    }
+        public float myCurrentValue
+        {
+            get
+            {
+                return currentValue;
+            }
+            set
+            {
+                if (value > myMaxValue)
+                {
+                    overflow = value - myMaxValue;
+                    currentValue = myMaxValue;
+                }
+                else if (value < 0)
+                {
+                    currentValue = 0;
+                }
+                else
+                {
+                    currentValue = value;
+                }
+                currentFill = currentValue / myMaxValue;
 
-    public void Initialize(float currentValue, float maxValue)
-    {
-        myMaxValue = maxValue;
-        myCurrentValue = currentValue;
-    }
-    public void ResetContent()
-    {
-        content.fillAmount = 0;   
+                /* statValue.text = currentValue + "/" + myMaxValue;*/
+            }
+        }
+
+        private void Start()
+        {
+            content = GetComponent<Image>();
+        }
+        private void Update()
+        {
+            if (currentFill != content.fillAmount)
+            {
+                content.fillAmount = Mathf.MoveTowards(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
+            }
+        }
+
+        public void Initialize(float currentValue, float maxValue)
+        {
+            myMaxValue = maxValue;
+            myCurrentValue = currentValue;
+        }
+        public void ResetContent()
+        {
+            content.fillAmount = 0;
+        }
     }
 }
+

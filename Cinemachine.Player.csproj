@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A4766584-E7BE-7D63-CD50-EB0548E78CED}</ProjectGuid>
+    <ProjectGuid>{26B1547A-3B23-E240-7088-18D74E05868E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Cinemachine</AssemblyName>
@@ -681,27 +681,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
-      <Project>{0A923273-CF1E-742D-A8C3-239383BB6407}</Project>
+      <Project>{13E4D6F9-5D99-EF3F-B4F0-636AAB91AEC4}</Project>
       <Name>Unity.Timeline.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Postprocessing.Runtime.Player.csproj">
-      <Project>{D87E165E-7BD1-0FDC-17FE-93570F8D7F93}</Project>
+      <Project>{2ADBDB8C-856A-A6A1-1842-0C7A56CF4F74}</Project>
       <Name>Unity.Postprocessing.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.Player.csproj">
-      <Project>{4A6E802F-24E2-80B8-50AE-9FA0DBAF6316}</Project>
+      <Project>{DC7EEE86-4B8D-17D2-F674-56C1B23392B4}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.Player.csproj">
-      <Project>{CFA7CC94-1419-82CF-05D2-3BF78960E15D}</Project>
+      <Project>{2C3211DF-27E5-EC9E-30F3-EC6E1028AA1A}</Project>
       <Name>Unity.RenderPipelines.Universal.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.Player.csproj">
-      <Project>{21FC1C02-6E31-772A-EC39-75BCF33CA393}</Project>
+      <Project>{6C2AF518-CE41-ECF0-D7EB-180E6E37C3AC}</Project>
       <Name>Unity.InputSystem.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{B485D0D0-ABF3-D096-2132-9C17D5B2DC22}</Project>
+      <Project>{0D59CB5B-18EE-1DFE-5251-DE28694AAE3A}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
   </ItemGroup>

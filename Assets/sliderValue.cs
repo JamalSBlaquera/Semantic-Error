@@ -4,24 +4,28 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class sliderValue : MonoBehaviour
+namespace Mal
 {
-    [SerializeField] protected Slider slider;
-    [SerializeField] protected TMP_Text val;
-    [SerializeField] protected TMP_Text Textname;
-    [SerializeField] protected GameObject SliderContainer;
-
-    private void Start()
+    public class sliderValue : MonoBehaviour
     {
-        UpdateValue(slider.value);
-        slider.onValueChanged.AddListener(UpdateValue);
+        [SerializeField] protected Slider slider;
+        [SerializeField] protected TMP_Text val;
+        [SerializeField] protected TMP_Text Textname;
+        [SerializeField] protected GameObject SliderContainer;
 
-        Textname.text = SliderContainer.name;
+        private void Start()
+        {
+            UpdateValue(slider.value);
+            slider.onValueChanged.AddListener(UpdateValue);
+
+            Textname.text = SliderContainer.name;
+        }
+
+        // Update is called once per frame
+        void UpdateValue(float value)
+        {
+            val.text = slider.value.ToString();
+        }
     }
 
-    // Update is called once per frame
-    void UpdateValue(float value)
-    {
-        val.text = slider.value.ToString();
-    }
 }

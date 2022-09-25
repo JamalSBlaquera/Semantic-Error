@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+namespace Mal
 {
-    private InputManager inputManager;
-
-    public void onclicks()
+    public class MenuManager : MonoBehaviour
     {
-        if (gameObject.activeSelf == false)
-        {
-            gameObject.SetActive(true);
-            GameObject[] menuObject = GameObject.FindGameObjectsWithTag("menuObject");
+        private InputManager inputManager;
 
-            foreach (GameObject obj in menuObject)
+        public void onclicks()
+        {
+            if (gameObject.activeSelf == false)
             {
-                Debug.Log(true);
-                if (gameObject.name != obj.name)
+                gameObject.SetActive(true);
+                GameObject[] menuObject = GameObject.FindGameObjectsWithTag("menuObject");
+
+                foreach (GameObject obj in menuObject)
                 {
-                    obj.SetActive(false);
+                    Debug.Log(true);
+                    if (gameObject.name != obj.name)
+                    {
+                        obj.SetActive(false);
+                    }
                 }
             }
         }
     }
+
 }
