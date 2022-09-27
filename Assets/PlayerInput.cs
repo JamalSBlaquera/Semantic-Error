@@ -46,22 +46,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugAdd"",
-                    ""type"": ""Value"",
-                    ""id"": ""17ef0c2d-3855-4de3-8b3e-222e756cf73c"",
+                    ""name"": ""SprintJump"",
+                    ""type"": ""Button"",
+                    ""id"": ""d39196b6-7a30-4121-b863-d257d4d4a8c5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""DebugSub"",
-                    ""type"": ""Value"",
-                    ""id"": ""42b97d3e-e357-464f-b102-6f409e8c0872"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Look"",
@@ -70,6 +61,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""de1d6e33-7086-422d-a895-b15748351f83"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""50197e90-9b24-4e27-8185-a47143048904"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(pressPoint=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -100,22 +109,22 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""50197e90-9b24-4e27-8185-a47143048904"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SprintJump"",
-                    ""type"": ""Button"",
-                    ""id"": ""d39196b6-7a30-4121-b863-d257d4d4a8c5"",
+                    ""name"": ""DebugSub"",
+                    ""type"": ""Value"",
+                    ""id"": ""42b97d3e-e357-464f-b102-6f409e8c0872"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DebugAdd"",
+                    ""type"": ""Value"",
+                    ""id"": ""17ef0c2d-3855-4de3-8b3e-222e756cf73c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -198,28 +207,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9d6de666-3f44-43e7-8249-e0e0ceb8cb0b"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugAdd"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dffacd13-0c40-4677-b962-f7c26204ac32"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugSub"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""480a9ded-1917-454a-92e9-ed593db78182"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
@@ -275,12 +262,56 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9d6de666-3f44-43e7-8249-e0e0ceb8cb0b"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAdd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dffacd13-0c40-4677-b962-f7c26204ac32"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugSub"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""67cfd491-6a5d-4b6d-a52d-e76b3fac62c6"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4988a170-a8d5-4866-b89e-fbf9ef1fcdfc"",
+                    ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe29a789-f4aa-4624-8395-920197425032"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -304,14 +335,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Sprint = m_PlayerMovement.FindAction("Sprint", throwIfNotFound: true);
-        m_PlayerMovement_DebugAdd = m_PlayerMovement.FindAction("DebugAdd", throwIfNotFound: true);
-        m_PlayerMovement_DebugSub = m_PlayerMovement.FindAction("DebugSub", throwIfNotFound: true);
+        m_PlayerMovement_SprintJump = m_PlayerMovement.FindAction("SprintJump", throwIfNotFound: true);
         m_PlayerMovement_Look = m_PlayerMovement.FindAction("Look", throwIfNotFound: true);
+        m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_StartLoad = m_PlayerMovement.FindAction("StartLoad", throwIfNotFound: true);
         m_PlayerMovement_Mouse = m_PlayerMovement.FindAction("Mouse", throwIfNotFound: true);
         m_PlayerMovement_File = m_PlayerMovement.FindAction("File", throwIfNotFound: true);
-        m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerMovement_SprintJump = m_PlayerMovement.FindAction("SprintJump", throwIfNotFound: true);
+        m_PlayerMovement_DebugSub = m_PlayerMovement.FindAction("DebugSub", throwIfNotFound: true);
+        m_PlayerMovement_DebugAdd = m_PlayerMovement.FindAction("DebugAdd", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -373,28 +405,30 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Sprint;
-    private readonly InputAction m_PlayerMovement_DebugAdd;
-    private readonly InputAction m_PlayerMovement_DebugSub;
+    private readonly InputAction m_PlayerMovement_SprintJump;
     private readonly InputAction m_PlayerMovement_Look;
+    private readonly InputAction m_PlayerMovement_Attack;
+    private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_StartLoad;
     private readonly InputAction m_PlayerMovement_Mouse;
     private readonly InputAction m_PlayerMovement_File;
-    private readonly InputAction m_PlayerMovement_Jump;
-    private readonly InputAction m_PlayerMovement_SprintJump;
+    private readonly InputAction m_PlayerMovement_DebugSub;
+    private readonly InputAction m_PlayerMovement_DebugAdd;
     public struct PlayerMovementActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerMovementActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Sprint => m_Wrapper.m_PlayerMovement_Sprint;
-        public InputAction @DebugAdd => m_Wrapper.m_PlayerMovement_DebugAdd;
-        public InputAction @DebugSub => m_Wrapper.m_PlayerMovement_DebugSub;
+        public InputAction @SprintJump => m_Wrapper.m_PlayerMovement_SprintJump;
         public InputAction @Look => m_Wrapper.m_PlayerMovement_Look;
+        public InputAction @Attack => m_Wrapper.m_PlayerMovement_Attack;
+        public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @StartLoad => m_Wrapper.m_PlayerMovement_StartLoad;
         public InputAction @Mouse => m_Wrapper.m_PlayerMovement_Mouse;
         public InputAction @File => m_Wrapper.m_PlayerMovement_File;
-        public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
-        public InputAction @SprintJump => m_Wrapper.m_PlayerMovement_SprintJump;
+        public InputAction @DebugSub => m_Wrapper.m_PlayerMovement_DebugSub;
+        public InputAction @DebugAdd => m_Wrapper.m_PlayerMovement_DebugAdd;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -410,15 +444,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Sprint.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprint;
-                @DebugAdd.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
-                @DebugAdd.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
-                @DebugAdd.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
-                @DebugSub.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
-                @DebugSub.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
-                @DebugSub.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
+                @SprintJump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
+                @SprintJump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
+                @SprintJump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
                 @Look.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
+                @Attack.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
+                @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
                 @StartLoad.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStartLoad;
                 @StartLoad.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStartLoad;
                 @StartLoad.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStartLoad;
@@ -428,12 +465,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @File.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFile;
                 @File.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFile;
                 @File.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFile;
-                @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
-                @SprintJump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
-                @SprintJump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
-                @SprintJump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSprintJump;
+                @DebugSub.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
+                @DebugSub.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
+                @DebugSub.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugSub;
+                @DebugAdd.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
+                @DebugAdd.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
+                @DebugAdd.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDebugAdd;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -444,15 +481,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
-                @DebugAdd.started += instance.OnDebugAdd;
-                @DebugAdd.performed += instance.OnDebugAdd;
-                @DebugAdd.canceled += instance.OnDebugAdd;
-                @DebugSub.started += instance.OnDebugSub;
-                @DebugSub.performed += instance.OnDebugSub;
-                @DebugSub.canceled += instance.OnDebugSub;
+                @SprintJump.started += instance.OnSprintJump;
+                @SprintJump.performed += instance.OnSprintJump;
+                @SprintJump.canceled += instance.OnSprintJump;
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
                 @StartLoad.started += instance.OnStartLoad;
                 @StartLoad.performed += instance.OnStartLoad;
                 @StartLoad.canceled += instance.OnStartLoad;
@@ -462,12 +502,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @File.started += instance.OnFile;
                 @File.performed += instance.OnFile;
                 @File.canceled += instance.OnFile;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
-                @SprintJump.started += instance.OnSprintJump;
-                @SprintJump.performed += instance.OnSprintJump;
-                @SprintJump.canceled += instance.OnSprintJump;
+                @DebugSub.started += instance.OnDebugSub;
+                @DebugSub.performed += instance.OnDebugSub;
+                @DebugSub.canceled += instance.OnDebugSub;
+                @DebugAdd.started += instance.OnDebugAdd;
+                @DebugAdd.performed += instance.OnDebugAdd;
+                @DebugAdd.canceled += instance.OnDebugAdd;
             }
         }
     }
@@ -476,13 +516,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
-        void OnDebugAdd(InputAction.CallbackContext context);
-        void OnDebugSub(InputAction.CallbackContext context);
+        void OnSprintJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnStartLoad(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
         void OnFile(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
-        void OnSprintJump(InputAction.CallbackContext context);
+        void OnDebugSub(InputAction.CallbackContext context);
+        void OnDebugAdd(InputAction.CallbackContext context);
     }
 }

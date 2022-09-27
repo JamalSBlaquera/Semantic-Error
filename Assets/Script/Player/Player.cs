@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Mal {
     public class Player : Character
     {
-        private static Character myInstace;
+        private static Character Instace;
         [HideInInspector]
         public CameraManager cameraManager;
 
@@ -18,14 +18,13 @@ namespace Mal {
         {
             get
             {
-                if (myInstace == null)
+                if (Instace == null)
                 {
-                    myInstace = FindObjectOfType<Character>();
+                    Instace = FindObjectOfType<Character>();
                 }
-                return myInstace;
+                return Instace;
             }
         }
-
 
         public PlayerStat myXPstat { get => XPstat; set => XPstat = value; }
         public PlayerStat myManaStat { get => ManaStat; set => ManaStat = value; }
@@ -40,6 +39,7 @@ namespace Mal {
         {
             cameraManager = FindObjectOfType<CameraManager>();
             myTransform = GetComponent<Transform>();
+            base.Awake();
         }
 
         protected override void Start()
@@ -51,9 +51,12 @@ namespace Mal {
         }
         protected override void Update()
         {
+            InputJump = InputManager.myInstance.jump;
             InputMove = InputManager.myInstance.move;
             InputSprint = InputManager.myInstance.sprint;
+            InputAttack = InputManager.myInstance.attack;
             PlayerMovement();
+            PlayerAttack();
         }
         private void LateUpdate()
         {
@@ -63,6 +66,10 @@ namespace Mal {
         {
             triggerSpeed = WalkSpeed;
             if (InputMove == Vector2.zero) triggerSpeed = 0.0f;
+        } 
+        private void PlayerAttack()
+        {
+            
         }
     }
 }

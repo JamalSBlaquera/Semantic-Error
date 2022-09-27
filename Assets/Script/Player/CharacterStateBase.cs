@@ -8,27 +8,51 @@ namespace Mal {
     {
         public List<StateData> ListAbilityData = new List<StateData>();
 
-        public void UpdateAll(CharacterStateBase characterStateBase, Animator animator)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             foreach(StateData data in ListAbilityData)
             {
-                data.UpdateAbility(characterStateBase, animator);
+                data.OnEnter(this, animator, stateInfo);
+            }
+        }
+        public void UpdateAll(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            foreach(StateData data in ListAbilityData)
+            {
+                data.UpdateAbility(characterStateBase, animator, stateInfo, layerIndex);
+            }
+        }
+        public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            UpdateAll(this, animator, stateInfo, layerIndex);
+        }
+
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            foreach(StateData data in ListAbilityData)
+            {
+                data.OnExit(this, animator, stateInfo);
             }
         }
 
-        public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            UpdateAll(this, animator);
-        }
-
         private CharacterController characterController;
-        public CharacterController GetCharacterController(Animator animator)
+        public CharacterController GetCharacterController( Animator animator)
         {
             if (characterController == null)
             {
                 characterController = animator.GetComponentInParent<CharacterController>();
             }
             return characterController;
+        }
+
+        private Character character;
+        public Character GetCharacter(Animator animator)
+        {
+            if (character == null)
+            {
+                character = animator.GetComponentInParent<Character>();
+            }
+            return character;
         }
     }
 }

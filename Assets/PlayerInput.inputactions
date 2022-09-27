@@ -24,22 +24,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DebugAdd",
-                    "type": "Value",
-                    "id": "17ef0c2d-3855-4de3-8b3e-222e756cf73c",
+                    "name": "SprintJump",
+                    "type": "Button",
+                    "id": "d39196b6-7a30-4121-b863-d257d4d4a8c5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "DebugSub",
-                    "type": "Value",
-                    "id": "42b97d3e-e357-464f-b102-6f409e8c0872",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Look",
@@ -48,6 +39,24 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "de1d6e33-7086-422d-a895-b15748351f83",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "50197e90-9b24-4e27-8185-a47143048904",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.1)",
                     "initialStateCheck": false
                 },
                 {
@@ -78,22 +87,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "50197e90-9b24-4e27-8185-a47143048904",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SprintJump",
-                    "type": "Button",
-                    "id": "d39196b6-7a30-4121-b863-d257d4d4a8c5",
+                    "name": "DebugSub",
+                    "type": "Value",
+                    "id": "42b97d3e-e357-464f-b102-6f409e8c0872",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DebugAdd",
+                    "type": "Value",
+                    "id": "17ef0c2d-3855-4de3-8b3e-222e756cf73c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -176,28 +185,6 @@
                 },
                 {
                     "name": "",
-                    "id": "9d6de666-3f44-43e7-8249-e0e0ceb8cb0b",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DebugAdd",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dffacd13-0c40-4677-b962-f7c26204ac32",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DebugSub",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "480a9ded-1917-454a-92e9-ed593db78182",
                     "path": "<Pointer>/delta",
                     "interactions": "",
@@ -253,12 +240,56 @@
                 },
                 {
                     "name": "",
+                    "id": "9d6de666-3f44-43e7-8249-e0e0ceb8cb0b",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugAdd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dffacd13-0c40-4677-b962-f7c26204ac32",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugSub",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "67cfd491-6a5d-4b6d-a52d-e76b3fac62c6",
                     "path": "<Keyboard>/space",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4988a170-a8d5-4866-b89e-fbf9ef1fcdfc",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe29a789-f4aa-4624-8395-920197425032",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

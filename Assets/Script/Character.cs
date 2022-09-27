@@ -23,11 +23,19 @@ namespace Mal {
         private CharacterController _characterController;
         [HideInInspector]
         public GameObject _mainCamera;
-        private Animator _animator;
+        [HideInInspector]
+        public Animator _animator;
+
         [HideInInspector]
         public Transform myTransform;
         public Vector2 InputMove;
         public bool InputSprint;
+        public bool InputJump;
+        public bool InputAttack;
+
+        //list
+        public List<Collider> RagdollParts = new List<Collider>();
+        public List<Collider> CollideParts = new List<Collider>();
 
         [Header("Character Stats")]
         [SerializeField]
@@ -66,15 +74,20 @@ namespace Mal {
         private float _terminalVelocity = 53.0f;
 
         //TimeOut
-        private float _fallingTimeoutDelta;
-        private float _jumpingTimeoutDelta;
+        [HideInInspector]
+        public float _fallingTimeoutDelta;
+        [HideInInspector]
+        public float _jumpingTimeoutDelta;
 
 
         private float _animationBlendMove;
         private float _motionSpeed = 1f;
+
+        public bool IsAttackin;
+
         protected virtual void Awake()
         {
-
+            SetRagdollPart();
         }
 
         protected virtual void Start()
@@ -96,70 +109,13 @@ namespace Mal {
         {
             _hasAnimator = TryGetComponent(out _animator);
             HanlderGravity();
-            HanlderJumpAndSprintJump();
+            /*HanlderJumpAndSprintJump();*/
             /*HandlerMovement();*/
             HanlderGroundedCheck();
            /* HandleRotation();*/
         }
 
         #region Jump And Gravity
-
-        private void HanlderJumpAndSprintJump()
-        {
-            if (isGrounded)
-            {
-                _fallingTimeoutDelta = FallingTimeout;
-
-                if (_hasAnimator)
-                {
-                    _animator.SetBool("Jump", false);
-                    _animator.SetBool("SprintJump", false);
-                    _animator.SetBool("FreeFall", false);
-                }
-                if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
-
-                if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && !_isSprinting)
-                {
-                    if (_hasAnimator)
-                    {
-                        _animator.SetTrigger("Jump");
-                    }
-                    _inputManager.sprint = false;
-                }
-
-                if (_inputManager.jump && _jumpingTimeoutDelta <= 0.0f && _isSprinting)
-                {
-                    if (_hasAnimator)
-                        _isSprintJump = true;
-                        _animator.SetBool("SprintJump", true);
-                        _stamina.myCurrentValue += 0.5f;
-                }
-                else
-                {
-                    _isSprintJump = false;
-                }
-
-
-                if (_jumpingTimeoutDelta >= 0.0f) _jumpingTimeoutDelta -= Time.deltaTime;
-            }
-            else
-            {
-                _jumpingTimeoutDelta = JumpingTimeout;
-
-                if (_fallingTimeoutDelta >= 0.0f)
-                {
-                    _fallingTimeoutDelta -= Time.deltaTime;
-                }
-                else
-                {
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool("FreeFall", true);
-                    }
-                }
-                _inputManager.jump = false;
-            }
-        }
         public void addJumpForce()
         {
             _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -187,19 +143,15 @@ namespace Mal {
 
         private void HanlderGroundedCheck()
         {
-
-
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset,
-                transform.position.z);
-            isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers,
-                QueryTriggerInteraction.Ignore);
-
-            // update animator if using character
+            for (float i = 0; i <= 2; i++)
+            {
+                Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z + i / 5 - .18f);
+                isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+            }
+            
 
             if (_hasAnimator)
-            {
                 _animator.SetBool("Grounded", isGrounded);
-            } 
         }
         private void OnDrawGizmosSelected()
         {
@@ -208,13 +160,69 @@ namespace Mal {
 
             if (isGrounded) Gizmos.color = transparentGreen;
             else Gizmos.color = transparentRed;
-
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(
+            /*Gizmos.DrawSphere(
                 new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z),
-                GroundedRadius);
+                GroundedRadius);*/
+
+            for (float i = 0; i <= 2; i++)
+            {
+                Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z + i/5 - .18f);
+                Vector3 direction = transform.TransformDirection(Vector3.down) * 1f;
+                Gizmos.DrawRay(rayPosition, direction);
+            }
+
+            Vector3 rayPositionForward = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            Vector3 directionForward = transform.TransformDirection(Vector3.forward) * 1f;
+            Gizmos.DrawRay(rayPositionForward, directionForward);
         }
         #endregion
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            if (RagdollParts.Contains(collider)) return;
+
+            Character control = collider.transform.root.GetComponent<Character>();
+
+            if (control == null) return;
+
+            if (collider.gameObject == control.gameObject) return;
+
+            if (!CollideParts.Contains(collider))
+            {
+                CollideParts.Add(collider);
+            }
+        }
+        private void OnTriggerExit(Collider collider)
+        {
+            if (CollideParts.Contains(collider))
+            {
+                CollideParts.Remove(collider);
+            }
+        }
+
+        private void SetRagdollPart()
+        {
+            Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
+
+            foreach(Collider c in colliders)
+            {
+                if (c.gameObject != this.gameObject)
+                    c.isTrigger = true;
+                    RagdollParts.Add(c);
+            }
+        } 
+        public void TurnOnRagdoll()
+        {
+            this.gameObject.GetComponent<CharacterController>().enabled = false;
+            _animator.enabled = false;
+            _animator.avatar = null;
+            foreach (Collider c in RagdollParts)
+            {
+                c.isTrigger = false;
+                c.attachedRigidbody.velocity = Vector3.zero;
+            }
+        }
     }
 }
 

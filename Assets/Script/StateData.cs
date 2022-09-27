@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Mal {
     public abstract class StateData : ScriptableObject
     {
-        public float Duration;
-
-        public abstract void UpdateAbility(CharacterStateBase characterStateBase, Animator animator);
+        public abstract void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo); 
+        public abstract void UpdateAbility(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
+        public abstract void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo);
     }
 
 }

@@ -58,17 +58,24 @@
   <ItemGroup>
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\SpringManager.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\RefleshProbe.cs" />
+    <Compile Include="Assets\Script\Player\CharacterStateBase.cs" />
     <Compile Include="Assets\ShaderForge-master\Shader Forge\Assets\ShaderForge\Example Assets\Scripts\SoftNormalsToVertexColor.cs" />
-    <Compile Include="Assets\Script\InputManager.cs" />
+    <Compile Include="Assets\Idle_Walk_Run_Sprint_State.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerMovement.cs" />
+    <Compile Include="Assets\Script\Manager\InputManager.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\SpringCollider.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\Scenes\Mirror\Scripts\MirrorReflection.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\ShaderForge-master\Shader Forge\Assets\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
     <Compile Include="Assets\Script\Settiing\SettingManager.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerAttack.cs" />
     <Compile Include="Assets\Script\Transitions\Transition.cs" />
     <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerLanding.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerJump.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
+    <Compile Include="Assets\Script\StateData.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\Animations\Rotator.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\SetShadowResolution.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\IdleChanger.cs" />
@@ -79,19 +86,20 @@
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\SpringBone.cs" />
     <Compile Include="Assets\Script\Player Stat\PlayerStat.cs" />
     <Compile Include="Assets\Sci Fi Modular Pack\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Script\Manager\AttackManager.cs" />
     <Compile Include="Assets\Script\snapRect.cs" />
-    <Compile Include="Assets\Script\MenuManager\MenuManager.cs" />
+    <Compile Include="Assets\Script\Manager\MenuManager.cs" />
+    <Compile Include="Assets\Script\Character State\ForceTransition.cs" />
     <Compile Include="Assets\sliderValue.cs" />
+    <Compile Include="Assets\Script\Manager\Singleton.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\AutoBlink.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\AutoBlinkforSD.cs" />
     <Compile Include="Assets\RobotSphere\Assets\Scripts\RobotFreeAnim.cs" />
     <Compile Include="Assets\ShaderForge-master\Shader Forge\Assets\ShaderForge\Example Assets\Scripts\EditorLabel.cs" />
     <Compile Include="Assets\Script\Character.cs" />
     <Compile Include="Assets\CameraManager.cs" />
-    <Compile Include="Assets\Script\Player\CharacterStateBase.cs" />
-    <Compile Include="Assets\Idle_Walk_Run_Sprint_State.cs" />
-    <Compile Include="Assets\Script\StateData.cs" />
-    <Compile Include="Assets\Script\Character State\HandlerMovement.cs" />
+    <Compile Include="Assets\Script\AttackInfo\Resources\AttackInfo.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerMoveForward.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Unitychan_chara_fuku.shader" />
@@ -105,7 +113,6 @@
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Security.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Framework.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Core.xml" />
-    <None Include="Assets\Shader1\animeToon.shader" />
     <None Include="Assets\Ludiq\Assemblies\sqlite3.dll" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Routing.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.DirectoryServices.xml" />
@@ -117,13 +124,11 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Entity.Design.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.ServiceModel.Web.xml" />
-    <None Include="Assets\Shader1\ToonRamp.hlsl" />
     <None Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\Scenes\Mirror\Shader\Mirror.shader" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Entity.Design.xml" />
     <None Include="Assets\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\Shader\Unitychan_chara_hada.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-    <None Include="Assets\Shader1\MyShader\ToonShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\toon.shader" />
     <None Include="Assets\ShaderForge-master\Shader Forge\Assets\ShaderForge\Example Assets\Shaders\Parallax.shader" />
@@ -146,7 +151,6 @@
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Configuration.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Messaging.xml" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.AddIn.xml" />
-    <None Include="Assets\Shader1\MyShader\NewUnlitShader.shader" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Linq.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.DynamicData.Design.xml" />
