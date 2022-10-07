@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Character State\HandlerMoveForward.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\SpringManager.cs" />
     <Compile Include="Assets\Samples\Unity Toon Shader\0.6.1-preview\Universal render pipeline\UnityChan\Scripts\RefleshProbe.cs" />
     <Compile Include="Assets\Script\Player\CharacterStateBase.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="Assets\Script\Character.cs" />
     <Compile Include="Assets\CameraManager.cs" />
     <Compile Include="Assets\Script\AttackInfo\Resources\AttackInfo.cs" />
-    <Compile Include="Assets\Script\Character State\HandlerMoveForward.cs" />
+    <Compile Include="Assets\Script\Joystick\Joystick.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Unitychan_chara_fuku.shader" />

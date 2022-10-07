@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Basic_Combo_Geen_2
   m_EditorClassIdentifier: 
   debug: 0
+  ActionName: Attack
   StartAttactTime: 0.2
   EndAttackTime: 0.8
   ColliderNames: []

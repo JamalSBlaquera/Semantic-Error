@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Mal
 {
     public class CameraManager : MonoBehaviour
+
     {
         InputManager inputManager;
         public Transform targetObject;
@@ -38,10 +41,18 @@ namespace Mal
 
             transform.position = targetPosition;
         }
+
+       
         private void CameraRotation()
         {
             Vector3 rotation;
             Quaternion targetRotation;
+
+           /* float mouseX = 0;
+            float mouseY = 0;*/
+
+            
+            
 
             lookAngle = lookAngle + (inputManager._look.x * cameraLookSpeed);
             pivotAngle = pivotAngle - (inputManager._look.y * cameraPivoteSpeed);

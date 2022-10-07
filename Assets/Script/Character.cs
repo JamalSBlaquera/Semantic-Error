@@ -103,6 +103,7 @@ namespace Mal {
         }
         protected virtual void Update()
         {
+            
             _hasAnimator = TryGetComponent(out _animator);
         }
         private void FixedUpdate()
@@ -205,22 +206,25 @@ namespace Mal {
         {
             Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
 
-            foreach(Collider c in colliders)
+            foreach(Collider col in colliders)
             {
-                if (c.gameObject != this.gameObject)
-                    c.isTrigger = true;
-                    RagdollParts.Add(c);
+                if (col.gameObject != this.gameObject)
+                    col.isTrigger = true;
+                    RagdollParts.Remove(this.gameObject.GetComponent<Collider>());
+                    RagdollParts.Add(col);
             }
         } 
         public void TurnOnRagdoll()
         {
-            this.gameObject.GetComponent<CharacterController>().enabled = false;
+            Debug.Log(true);
+            Gravity = 0f;
+            this.gameObject.GetComponent<Collider>().enabled = false;
             _animator.enabled = false;
             _animator.avatar = null;
-            foreach (Collider c in RagdollParts)
+            foreach (Collider col in RagdollParts)
             {
-                c.isTrigger = false;
-                c.attachedRigidbody.velocity = Vector3.zero;
+                col.isTrigger = false;
+                col.attachedRigidbody.velocity = Vector3.zero;
             }
         }
     }

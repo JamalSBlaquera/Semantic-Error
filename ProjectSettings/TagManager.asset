@@ -9,6 +9,7 @@ TagManager:
   - div
   - divbtn
   - menuObject
+  - Touchscreen
   layers:
   - Default
   - TransparentFX

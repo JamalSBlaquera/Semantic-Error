@@ -207,8 +207,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""480a9ded-1917-454a-92e9-ed593db78182"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""id"": ""cf326097-9e00-469f-9a06-a3f5ab155321"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -306,23 +306,60 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fe29a789-f4aa-4624-8395-920197425032"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Tap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""169f0ee8-a7a4-4a0d-abfc-83aa515c3bca"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SprintJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player Touch"",
+            ""id"": ""4af9364f-97bb-477c-844f-8ba8165a0583"",
+            ""actions"": [
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""75cd2035-e6ef-4483-9acb-1216ea38ec7c"",
+                    ""expectedControlType"": ""Touch"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Touch0"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""24f3d5c2-ffd2-475a-961a-3929725481cc"",
+                    ""expectedControlType"": ""Touch"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0f32e466-f90a-4caa-818a-3971f9001d24"",
+                    ""path"": ""<Touchscreen>/primaryTouch"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""387ed794-00f6-4a14-8d51-2955193fd7f0"",
+                    ""path"": ""<Touchscreen>/touch0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -344,6 +381,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerMovement_File = m_PlayerMovement.FindAction("File", throwIfNotFound: true);
         m_PlayerMovement_DebugSub = m_PlayerMovement.FindAction("DebugSub", throwIfNotFound: true);
         m_PlayerMovement_DebugAdd = m_PlayerMovement.FindAction("DebugAdd", throwIfNotFound: true);
+        // Player Touch
+        m_PlayerTouch = asset.FindActionMap("Player Touch", throwIfNotFound: true);
+        m_PlayerTouch_Touch = m_PlayerTouch.FindAction("Touch", throwIfNotFound: true);
+        m_PlayerTouch_Touch0 = m_PlayerTouch.FindAction("Touch0", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -512,6 +553,47 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+    // Player Touch
+    private readonly InputActionMap m_PlayerTouch;
+    private IPlayerTouchActions m_PlayerTouchActionsCallbackInterface;
+    private readonly InputAction m_PlayerTouch_Touch;
+    private readonly InputAction m_PlayerTouch_Touch0;
+    public struct PlayerTouchActions
+    {
+        private @PlayerInput m_Wrapper;
+        public PlayerTouchActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Touch => m_Wrapper.m_PlayerTouch_Touch;
+        public InputAction @Touch0 => m_Wrapper.m_PlayerTouch_Touch0;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerTouch; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerTouchActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerTouchActions instance)
+        {
+            if (m_Wrapper.m_PlayerTouchActionsCallbackInterface != null)
+            {
+                @Touch.started -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch;
+                @Touch.performed -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch;
+                @Touch.canceled -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch;
+                @Touch0.started -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch0;
+                @Touch0.performed -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch0;
+                @Touch0.canceled -= m_Wrapper.m_PlayerTouchActionsCallbackInterface.OnTouch0;
+            }
+            m_Wrapper.m_PlayerTouchActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
+                @Touch0.started += instance.OnTouch0;
+                @Touch0.performed += instance.OnTouch0;
+                @Touch0.canceled += instance.OnTouch0;
+            }
+        }
+    }
+    public PlayerTouchActions @PlayerTouch => new PlayerTouchActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -525,5 +607,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnFile(InputAction.CallbackContext context);
         void OnDebugSub(InputAction.CallbackContext context);
         void OnDebugAdd(InputAction.CallbackContext context);
+    }
+    public interface IPlayerTouchActions
+    {
+        void OnTouch(InputAction.CallbackContext context);
+        void OnTouch0(InputAction.CallbackContext context);
     }
 }

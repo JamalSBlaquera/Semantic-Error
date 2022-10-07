@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Mal {
@@ -57,10 +58,13 @@ namespace Mal {
             InputAttack = InputManager.myInstance.attack;
             PlayerMovement();
             PlayerAttack();
+            cameraManager.HandleAllCameraMovement();
+
+            
         }
         private void LateUpdate()
         {
-            cameraManager.HandleAllCameraMovement();
+            
         }
         private void PlayerMovement()
         {

@@ -20,13 +20,16 @@ namespace Mal
             }
         }
 
-        PlayerInput playerInput;
+        public PlayerInput playerInput;
 
         [Header("Character Input Values")]
         public Vector2 move;
         public bool sprint;
         public bool jump;
         public bool attack;
+
+        public bool ptouch;
+        public bool touchZero;
 
         public float verticalInput;
         public float horizontalInput;
@@ -54,7 +57,19 @@ namespace Mal
                 playerInput.PlayerMovement.File.performed += OpenFile;
                 playerInput.PlayerMovement.DebugAdd.performed += onDebugAdd;
                 playerInput.PlayerMovement.DebugSub.performed += onDebugSub;
+
+                playerInput.PlayerMovement.Look.started += onLook;
                 playerInput.PlayerMovement.Look.performed += onLook;
+                playerInput.PlayerMovement.Look.canceled += onLook;
+
+                playerInput.PlayerTouch.Touch.started += onTouch;
+                playerInput.PlayerTouch.Touch.performed += onTouch;
+                playerInput.PlayerTouch.Touch.canceled += onTouch;
+
+                playerInput.PlayerTouch.Touch0.started += onTouchZero;
+                playerInput.PlayerTouch.Touch0.performed += onTouchZero;
+                playerInput.PlayerTouch.Touch0.canceled += onTouchZero;
+
                 playerInput.PlayerMovement.StartLoad.performed += onload;
                 playerInput.PlayerMovement.Mouse.performed += onMouse;
 
@@ -96,6 +111,15 @@ namespace Mal
         private void onLook(InputAction.CallbackContext i)
         {
             _look = i.ReadValue<Vector2>();
+        }
+
+        private void onTouch(InputAction.CallbackContext i)
+        {
+            ptouch = i.ReadValueAsButton();
+        }
+        private void onTouchZero(InputAction.CallbackContext i)
+        {
+            touchZero = i.ReadValueAsButton();
         }
 
         private void onSprint(InputAction.CallbackContext i)

@@ -7,8 +7,9 @@ namespace Mal
     [CreateAssetMenu(fileName = "New State HandlerAttack", menuName = "Mal/Ability Data/HandlerAttack")]
     public class HandlerAttack : StateData
     {
-        [Header("Combo")]
+        [Header("Attack State")]
         public bool debug;
+        public string ActionName;
         public float StartAttactTime;
         public float EndAttackTime;
         public List<string> ColliderNames = new List<string>();
@@ -114,7 +115,7 @@ namespace Mal
                 {
                     if (character.InputAttack)
                     {
-                        animator.SetBool("Attack", true);
+                        animator.SetBool(ActionName, true);
                     }
                 }
             }
@@ -122,7 +123,7 @@ namespace Mal
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
             ClearAttack();
-            animator.SetBool("Attack", false);
+            animator.SetBool(ActionName, false);
         }
     }
 }

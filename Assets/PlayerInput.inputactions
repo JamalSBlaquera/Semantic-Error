@@ -185,8 +185,8 @@
                 },
                 {
                     "name": "",
-                    "id": "480a9ded-1917-454a-92e9-ed593db78182",
-                    "path": "<Pointer>/delta",
+                    "id": "cf326097-9e00-469f-9a06-a3f5ab155321",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -284,23 +284,60 @@
                 },
                 {
                     "name": "",
-                    "id": "fe29a789-f4aa-4624-8395-920197425032",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "169f0ee8-a7a4-4a0d-abfc-83aa515c3bca",
                     "path": "<Keyboard>/space",
                     "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "SprintJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player Touch",
+            "id": "4af9364f-97bb-477c-844f-8ba8165a0583",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "PassThrough",
+                    "id": "75cd2035-e6ef-4483-9acb-1216ea38ec7c",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Touch0",
+                    "type": "PassThrough",
+                    "id": "24f3d5c2-ffd2-475a-961a-3929725481cc",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0f32e466-f90a-4caa-818a-3971f9001d24",
+                    "path": "<Touchscreen>/primaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "387ed794-00f6-4a14-8d51-2955193fd7f0",
+                    "path": "<Touchscreen>/touch0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

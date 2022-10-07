@@ -8,9 +8,7 @@ namespace Mal
     public class HandlerMoveForward : StateData
     {
         //player 
-        private float _rotationVelocity;
-        private float _targetRotation;
-
+        public AnimationCurve SpeedCurve;
         public float addMoveForward;
 
         public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
@@ -22,18 +20,18 @@ namespace Mal
             CharacterController _characterController = characterStateBase.GetCharacterController(animator);
             Character character = characterStateBase.GetCharacter(animator);
 
-            MoveForward(character, _characterController);
+            MoveForward(character, _characterController, stateInfo);
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
             
         }
 
-        private void MoveForward(Character character, CharacterController characterController)
+        private void MoveForward(Character character, CharacterController characterController, AnimatorStateInfo stateInfo)
         {
             Vector3 directionForward = character.myTransform.TransformDirection(Vector3.forward);
 
-            characterController.Move(directionForward * Time.deltaTime * addMoveForward);
+            characterController.Move(directionForward * addMoveForward * SpeedCurve.Evaluate(stateInfo.normalizedTime ) * Time.deltaTime );
 
         }
     }
