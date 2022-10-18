@@ -19,7 +19,7 @@ namespace Mal
         {
             CharacterController _characterController = characterStateBase.GetCharacterController(animator);
             Character character = characterStateBase.GetCharacter(animator);
-
+            
             MoveForward(character, _characterController, stateInfo);
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)

@@ -5,11 +5,35 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Build Scenes/1Intro.unity
+    guid: 3a4037c442c7b8240b5bff28ec0bea6c
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/2LoginOption.unity
+    guid: 51cececbaff4df942af7cf13244ba2ad
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/3Login.unity
+    guid: d3a4d839501fba648a95d8846dacadac
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/4Signin.unity
+    guid: 410e4340bfa72d444bae6706d682be14
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/5Menu.unity
+    guid: c71b31572a00cf44e85ac238b871af95
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/6File.unity
+    guid: 7a1babed25a5f5d4294329d6c0a0edad
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/7Ranking.unity
+    guid: fc7614b84dc334c4995d481cd44dab95
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/8Selection.unity
+    guid: 90eda2030c9310942921aa790a40d7fa
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/9Setting.unity
+    guid: 6512e3224b858194ab9bc12178240474
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/10Email.unity
+    guid: bc94048deca6c9e44bf19fde174fd93e
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 835451398bb53db48b696ad4c45b2627, type: 2}

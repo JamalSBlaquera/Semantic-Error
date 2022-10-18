@@ -54,5 +54,23 @@ namespace Mal {
             }
             return character;
         }
+        private Player player;
+        public Player GetPlayer(Animator animator)
+        {
+            if (player == null)
+            {
+                player = animator.GetComponentInParent<Player>();
+            }
+            return player;
+        }
+        private Enemy enemy;
+        public Enemy GetEnemy(Animator animator)
+        {
+            if (enemy == null)
+            {
+                enemy = animator.GetComponentInParent<Enemy>();
+            }
+            return enemy;
+        }
     }
 }

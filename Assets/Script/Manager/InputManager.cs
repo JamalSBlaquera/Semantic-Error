@@ -62,14 +62,6 @@ namespace Mal
                 playerInput.PlayerMovement.Look.performed += onLook;
                 playerInput.PlayerMovement.Look.canceled += onLook;
 
-                playerInput.PlayerTouch.Touch.started += onTouch;
-                playerInput.PlayerTouch.Touch.performed += onTouch;
-                playerInput.PlayerTouch.Touch.canceled += onTouch;
-
-                playerInput.PlayerTouch.Touch0.started += onTouchZero;
-                playerInput.PlayerTouch.Touch0.performed += onTouchZero;
-                playerInput.PlayerTouch.Touch0.canceled += onTouchZero;
-
                 playerInput.PlayerMovement.StartLoad.performed += onload;
                 playerInput.PlayerMovement.Mouse.performed += onMouse;
 

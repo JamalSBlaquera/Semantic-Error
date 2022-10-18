@@ -16,15 +16,15 @@ namespace Mal {
         {
             CharacterController _characterController = characterStateBase.GetCharacterController(animator);
             Character character = characterStateBase.GetCharacter(animator);
-
-            HanlderJumpAndSprintJump(character, animator);
+            Player player = characterStateBase.GetPlayer(animator); 
+            HanlderJumpAndSprintJump(character, player, animator);
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
             
         }
 
-        private void HanlderJumpAndSprintJump(Character character, Animator animator)
+        private void HanlderJumpAndSprintJump(Character character, Player player, Animator animator)
         {
             if (character.isGrounded)
             {
@@ -32,21 +32,21 @@ namespace Mal {
 
                 if (character._verticalVelocity < 0.0f) character._verticalVelocity = -2f;
 
-                if (character.InputJump && character._jumpingTimeoutDelta <= 0.0f && !character._isSprinting)
+                if (player.InputJump && character._jumpingTimeoutDelta <= 0.0f && !character._isSprinting)
                 {
                     if (character._hasAnimator)
                     {
                         animator.SetBool("Jump", true);
                     }
-                    character.InputSprint = false;
+                    player.InputSprint = false;
                 }
 
-                if (character.InputJump && character._jumpingTimeoutDelta <= 0.0f && character._isSprinting)
+                if (player.InputJump && character._jumpingTimeoutDelta <= 0.0f && character._isSprinting)
                 {
                     if (character._hasAnimator)
                         character._isSprintJump = true;
                     animator.SetBool("SprintJump", true);
-                    character._stamina.myCurrentValue += 0.5f;
+                    Player.myInstance._stamina.myCurrentValue += 0.5f;
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Mal {
                         animator.SetBool("FreeFall", true);
                     }
                 }
-                character.InputJump = false;
+                player.InputJump = false;
             }
         }
     }

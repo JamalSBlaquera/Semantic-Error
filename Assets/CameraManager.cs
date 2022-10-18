@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Mal
 {
-    public class CameraManager : MonoBehaviour
+    public class CameraManager : MonoBehaviour, IPointerDownHandler
 
     {
         InputManager inputManager;
+        FixedJoystick fixedJoystick;
         public Transform targetObject;
         public Vector3 cameraVelocity = Vector3.zero;
         public float cameraSpeed = 0.2f;
@@ -18,6 +20,8 @@ namespace Mal
         public float minimumPivotAngle = -35;
         public float maximumPivotAngle = 35;
         public Transform cameraPivote;
+        [SerializeField]
+        public TMP_Text id;
 
         public float lookAngle;
         public float pivotAngle;
@@ -25,7 +29,9 @@ namespace Mal
         private void Awake()
         {
             inputManager = FindObjectOfType<InputManager>();
-            targetObject = FindObjectOfType<Character>().transform;
+            targetObject = FindObjectOfType<Player>().transform;
+            fixedJoystick = FindObjectOfType<FixedJoystick>();
+            id = GetComponent<TMP_Text>();
         }
 
         public void HandleAllCameraMovement()
@@ -41,18 +47,39 @@ namespace Mal
 
             transform.position = targetPosition;
         }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            int clickID = eventData.pointerId;
 
-       
+            if (clickID == -1)
+            {
+                Debug.Log("Left mouse click registered");
+            }
+            else if (clickID == -2)
+            {
+                Debug.Log("Right mouse click registered");
+            }
+            else if (clickID == -3)
+            {
+                Debug.Log("Center mouse click registered");
+            }
+            else if (clickID == 0)
+            {
+                Debug.Log("Single tap registered");
+            }
+            else if (clickID == 1)
+            {
+                Debug.Log("Double tap registered");
+            }
+            else if (clickID == 2)
+            {
+                Debug.Log("Triple tap registered");
+            }
+        }
         private void CameraRotation()
         {
             Vector3 rotation;
             Quaternion targetRotation;
-
-           /* float mouseX = 0;
-            float mouseY = 0;*/
-
-            
-            
 
             lookAngle = lookAngle + (inputManager._look.x * cameraLookSpeed);
             pivotAngle = pivotAngle - (inputManager._look.y * cameraPivoteSpeed);

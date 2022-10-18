@@ -8,8 +8,9 @@ namespace Mal
     public class HandlerMovement : StateData
     {
         private float currentHorizontalSpeed;
-        public float SpeedLimit = 0f;
-
+        Vector3 inputDeriction;
+        Vector3 targetDerection;
+        float moveRotation;
         //player 
         private float _animationBlendMove;
         private float _rotationVelocity;
@@ -25,47 +26,19 @@ namespace Mal
         {
             CharacterController _characterController = characterStateBase.GetCharacterController(animator);
             Character character = characterStateBase.GetCharacter(animator);
+            Player player = characterStateBase.GetPlayer(animator);
+            Enemy enemy = characterStateBase.GetEnemy(animator);
 
-            HalderStamina(character);
-            HanlderMovement(character, _characterController, animator);
+            HanlderMovement(character, player, enemy, _characterController, animator);
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
             
         }
-        private void HalderStamina(Character character)
+        private void HanlderMovement(Character character, Player player, Enemy enemy, CharacterController _characterController, Animator animator)
         {
-            if (character.InputSprint)
-            {
-                Character.myInstance.triggerSpeed = Character.myInstance.SprintSpeed;
-                Character.myInstance._isSprinting = true;
-                if (!Character.myInstance._isSprintJump)
-                {
-                    Character.myInstance._stamina.myCurrentValue -= 0.5f;
-                }
-                if (Character.myInstance._stamina.myCurrentValue == 0)
-                {
-                    Character.myInstance.triggerSpeed = Character.myInstance.WalkSpeed;
-                    Character.myInstance.InputSprint = false;
-                }
-            }
-            else
-            {
-                Character.myInstance._stamina.myCurrentValue += 0.5f;
-            }
-        }
-        private void HanlderMovement(Character character, CharacterController _characterController, Animator animator)
-        {
-            float Speed;
-            if (SpeedLimit != 0f)
-            {
-                Speed = SpeedLimit;
-            }
-            else
-            {
-                Speed = character.triggerSpeed;
-            }
-
+            float Speed = character.triggerSpeed;
+            
             currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
             _animationBlendMove = Mathf.Lerp(_animationBlendMove, Speed, Time.deltaTime * character.SpeedChange);
@@ -85,25 +58,31 @@ namespace Mal
                 character._isSprinting = false;
 
                 _animationBlendMove = 0f;
-            }
+            }            
 
-            Vector3 inputDeriction = new Vector3(character.InputMove.x, 0, character.InputMove.y).normalized;
-            if (character.InputMove != Vector2.zero)
+            inputDeriction = new Vector3(player.InputMove.x, 0, player.InputMove.y).normalized;
+            if (character.CompareTag("Player"))
             {
-                _targetRotation = Mathf.Atan2(inputDeriction.x, inputDeriction.z) * Mathf.Rad2Deg + character._mainCamera.transform.eulerAngles.y;
-                float moveRotation = Mathf.SmoothDampAngle(character.myTransform.eulerAngles.y, _targetRotation, ref _rotationVelocity, character.RotationSmoothTime);
-                character.myTransform.rotation = Quaternion.Euler(0, moveRotation, 0);
+                if (player.InputMove != Vector2.zero)
+                {
+                    HandlerRotation(character);
+                    targetDerection = Quaternion.Euler(0, moveRotation, 0) * Vector3.forward;
+                }
+                _characterController.Move(targetDerection.normalized * Time.deltaTime * Speed +
+                     new Vector3(0, character._verticalVelocity, 0) * Time.deltaTime);
             }
-
-            Vector3 targetDerection = Quaternion.Euler(0, _targetRotation, 0) * Vector3.forward;
-            _characterController.Move(targetDerection.normalized * Time.deltaTime * Speed +
-                new Vector3(0, character._verticalVelocity, 0) * Time.deltaTime);
 
             if (character._hasAnimator)
             {
                 animator.SetFloat("Speed", _animationBlendMove);
             }
-        }       
+        } 
+        private void HandlerRotation(Character character)
+        {
+            _targetRotation = Mathf.Atan2(inputDeriction.x, inputDeriction.z) * Mathf.Rad2Deg + character._mainCamera.transform.eulerAngles.y;
+            moveRotation = Mathf.SmoothDampAngle(character.myTransform.eulerAngles.y, _targetRotation, ref _rotationVelocity, character.RotationSmoothTime);
+            character.myTransform.rotation = Quaternion.Euler(0, moveRotation, 0).normalized;
+        }
     }
 }
 

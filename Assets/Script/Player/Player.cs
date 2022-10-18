@@ -1,34 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Mal {
     public class Player : Character
     {
-        private static Character Instace;
-        [HideInInspector]
-        public CameraManager cameraManager;
-
-        [SerializeField] private PlayerStat ManaStat;
-
-        [SerializeField] private PlayerStat XPstat;
-        [SerializeField] private Text LevelText;
-        public static Character myInstance
+        private static Player Instance;
+        public static Player myInstance
         {
             get
             {
-                if (Instace == null)
+                if (Instance == null)
                 {
-                    Instace = FindObjectOfType<Character>();
+                    Instance = FindObjectOfType<Player>();
                 }
-                return Instace;
+                return Instance;
             }
         }
+        
+        public Vector2 InputMove;
 
-        public PlayerStat myXPstat { get => XPstat; set => XPstat = value; }
-        public PlayerStat myManaStat { get => ManaStat; set => ManaStat = value; }
+        [Header("Input")]
+        public bool InputSprint;
+        public bool InputJump;
+
+        [Header("Character Stats")]
+        [SerializeField]
+        public PlayerStat _stamina;
+        private float initStamina = 100;
+
+        [HideInInspector]
+        public CameraManager cameraManager;
 
         /* public PlayerStat ManaStat { get => manaStat; set => manaStat = value; }
          public PlayerStat XpStat { get => xpStat; set => xpStat = value; }*/
@@ -45,6 +50,7 @@ namespace Mal {
 
         protected override void Start()
         {
+            _stamina.Initialize(initStamina, initStamina);
             /*myHealth.Initialize(100, Mathf.Floor(20 * myLevel * Mathf.Pow(myLevel, 0.01f)));
             ManaStat.Initialize(20, Mathf.Floor(20 * myLevel * Mathf.Pow(myLevel, 0.01f)));
             XPstat.Initialize(0, Mathf.Floor(100 * myLevel * Mathf.Pow(myLevel, 0.5f)));*/
@@ -58,14 +64,39 @@ namespace Mal {
             InputAttack = InputManager.myInstance.attack;
             PlayerMovement();
             PlayerAttack();
+            HalderStamina();
             cameraManager.HandleAllCameraMovement();
-
-            
+            base.Update();
         }
         private void LateUpdate()
         {
             
         }
+        private void HalderStamina()
+        {
+            if (InputSprint)
+            {
+                triggerSpeed = SprintSpeed;
+                _isSprinting = true;
+                if (!_isSprintJump)
+                {
+                    _stamina.myCurrentValue -= 0.5f;
+                }
+                if (_stamina.myCurrentValue == 0)
+                {
+                    triggerSpeed = WalkSpeed;
+                    InputSprint = false;
+                }
+            }
+            else
+            {
+                if (_stamina.myCurrentValue != _stamina.myMaxValue)
+                {
+                    _stamina.myCurrentValue += 0.5f;
+                }
+            }
+        }
+
         private void PlayerMovement()
         {
             triggerSpeed = WalkSpeed;

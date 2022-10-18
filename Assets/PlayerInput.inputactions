@@ -185,8 +185,8 @@
                 },
                 {
                     "name": "",
-                    "id": "cf326097-9e00-469f-9a06-a3f5ab155321",
-                    "path": "<Mouse>/delta",
+                    "id": "46b60a8c-0f83-4be0-82de-14c36cb31512",
+                    "path": "<Joystick>/stick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -290,54 +290,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "SprintJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Player Touch",
-            "id": "4af9364f-97bb-477c-844f-8ba8165a0583",
-            "actions": [
-                {
-                    "name": "Touch",
-                    "type": "PassThrough",
-                    "id": "75cd2035-e6ef-4483-9acb-1216ea38ec7c",
-                    "expectedControlType": "Touch",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Touch0",
-                    "type": "PassThrough",
-                    "id": "24f3d5c2-ffd2-475a-961a-3929725481cc",
-                    "expectedControlType": "Touch",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "0f32e466-f90a-4caa-818a-3971f9001d24",
-                    "path": "<Touchscreen>/primaryTouch",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Touch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "387ed794-00f6-4a14-8d51-2955193fd7f0",
-                    "path": "<Touchscreen>/touch0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Touch0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

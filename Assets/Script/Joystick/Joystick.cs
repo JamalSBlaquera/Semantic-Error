@@ -1,74 +1,44 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using UnityEngine.InputSystem.Layouts;
 
-namespace UnityEngine.InputSystem.OnScreen {
-    public class Joystick : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
+{
+    [Header("Options")]
+    [Range(0f, 2f)] public float handleLimit = 1f;
+    public JoystickMode joystickMode = JoystickMode.AllAxis;
+
+    protected Vector2 inputVector = Vector2.zero;
+
+    [Header("Components")]
+    public RectTransform background;
+    public RectTransform handle;
+
+    public float Horizontal { get { return inputVector.x; } }
+    public float Vertical { get { return inputVector.y; } }
+    public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
+
+    public virtual void OnDrag(PointerEventData eventData)
     {
-        [FormerlySerializedAs("movementRange")]
-        [SerializeField]
-        [Range(0f, 1000f)]
-        private float handleLimit = 50;
 
-        [Header("Components")]
-        public RectTransform handle;
+    }
 
-        [InputControl(layout = "Vector2")]
-        [SerializeField]
-        private string ControlPath;
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
 
-        private Vector3 StartPosition;
-        private Vector2 PointerDownPosition;
+    }
 
-        protected override string controlPathInternal
-        {
-            get => ControlPath;
-            set => ControlPath = value;
-        }
+    public virtual void OnPointerUp(PointerEventData eventData)
+    {
+        
+    }
 
-        private void Start()
-        {
-            StartPosition = ((RectTransform)transform).anchoredPosition;
-        }
-
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (eventData == null)
-            {
-                throw new System.ArgumentNullException(nameof(eventData));
-            }
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponentInParent<RectTransform>(), eventData.position, eventData.pressEventCamera, out PointerDownPosition);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (eventData == null)
-                throw new System.ArgumentNullException(nameof(eventData));
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponentInParent<RectTransform>(), eventData.position, eventData.pressEventCamera, out var position);
-            var delta = position - PointerDownPosition;
-
-            delta = Vector2.ClampMagnitude(delta, movementRange);
-            handle.anchoredPosition = StartPosition + (Vector3)delta;
-
-            var newPos = new Vector2(delta.x / movementRange, delta.y / movementRange);
-            SendValueToControl(newPos);
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            handle.anchoredPosition = StartPosition;
-            SendValueToControl(Vector2.zero);
-        }
-
-        public float movementRange
-        {
-            get => handleLimit;
-            set => handleLimit = value;
-        }
+    protected void ClampJoystick()
+    {
+        if (joystickMode == JoystickMode.Horizontal)
+            inputVector = new Vector2(inputVector.x, 0f);
+        if (joystickMode == JoystickMode.Vertical)
+            inputVector = new Vector2(0f, inputVector.y);
     }
 }
 
-
+public enum JoystickMode { AllAxis, Horizontal, Vertical}

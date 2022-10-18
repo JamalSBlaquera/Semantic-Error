@@ -3,88 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Mal {
-    public class Character : MonoBehaviour
+    public class Character : InspactorManager
     {
-        private static Character Instance;
-
-        public static Character myInstance
-        {
-            get
-            {
-                if (Instance == null)
-                {
-                    Instance = FindObjectOfType<Character>();
-                }
-                return Instance;
-            }
-        }
-
-        private InputManager _inputManager;
-        private CharacterController _characterController;
-        [HideInInspector]
-        public GameObject _mainCamera;
-        [HideInInspector]
-        public Animator _animator;
-
-        [HideInInspector]
-        public Transform myTransform;
-        public Vector2 InputMove;
-        public bool InputSprint;
-        public bool InputJump;
-        public bool InputAttack;
-
-        //list
-        public List<Collider> RagdollParts = new List<Collider>();
-        public List<Collider> CollideParts = new List<Collider>();
-
-        [Header("Character Stats")]
-        [SerializeField]
-        public PlayerStat _stamina;
-        private float initStamina = 100;
-
-        public bool _hasAnimator;
-
-        [Header("Action States")]
-        [SerializeField] public bool _isWalking;
-        [SerializeField] public bool _isSprinting;
-        [SerializeField] public bool _isSprintJump;
-
-        [Header("Player Movetion")]
-        public float WalkSpeed;
-        public float SprintSpeed;
-        public float SpeedChange = 10.0f;
-        public float RotationSmoothTime = 0.12f;
-
-        [HideInInspector]
-        public float triggerSpeed;
-        public float FallingTimeout = 0.15f;
-        public float JumpHeight = 1.2f;
-        public float JumpSprintHeight = 2f;
-        public float JumpingTimeout = 0.50f;
-
-        [Header("Charater GroundCheck and Gravity")]
-        public float Gravity = -15.0f;
-        public float groundedOffset = -0.14f;
-        public LayerMask groundLayers;
-        public bool isGrounded = true;
-        public float GroundedRadius = 0.28f;
-
-        [HideInInspector]
-        public float _verticalVelocity;
-        private float _terminalVelocity = 53.0f;
-
-        //TimeOut
-        [HideInInspector]
-        public float _fallingTimeoutDelta;
-        [HideInInspector]
-        public float _jumpingTimeoutDelta;
-
-
-        private float _animationBlendMove;
-        private float _motionSpeed = 1f;
-
-        public bool IsAttackin;
-
+       
         protected virtual void Awake()
         {
             SetRagdollPart();
@@ -96,24 +17,19 @@ namespace Mal {
             _inputManager = GetComponent<InputManager>();
             _characterController = GetComponent<CharacterController>();
 
-            _stamina.Initialize(initStamina, initStamina);
 
             _jumpingTimeoutDelta = JumpingTimeout;
             _fallingTimeoutDelta = FallingTimeout;
         }
         protected virtual void Update()
         {
-            
             _hasAnimator = TryGetComponent(out _animator);
         }
         private void FixedUpdate()
         {
             _hasAnimator = TryGetComponent(out _animator);
             HanlderGravity();
-            /*HanlderJumpAndSprintJump();*/
-            /*HandlerMovement();*/
             HanlderGroundedCheck();
-           /* HandleRotation();*/
         }
 
         #region Jump And Gravity
@@ -150,7 +66,6 @@ namespace Mal {
                 isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
             }
             
-
             if (_hasAnimator)
                 _animator.SetBool("Grounded", isGrounded);
         }
@@ -173,12 +88,32 @@ namespace Mal {
                 Gizmos.DrawRay(rayPosition, direction);
             }
 
-            Vector3 rayPositionForward = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            /*Vector3 rayPositionForward = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 directionForward = transform.TransformDirection(Vector3.forward) * 1f;
-            Gizmos.DrawRay(rayPositionForward, directionForward);
+            Gizmos.DrawRay(rayPositionForward, directionForward);*/
         }
         #endregion
 
+        public void animationBlendMove(float speed)
+        {
+            _animationBlendMovement = Mathf.Lerp(_animationBlendMovement, speed, Time.deltaTime * SpeedChange);
+            if (_animationBlendMovement >= 2.1f)
+            {
+                _isSprinting = true;
+                _isWalking = false;
+            }
+            else if (_animationBlendMovement > 0.1f)
+            {
+                _isWalking = true;
+                _isSprinting = false;
+            }
+            else
+            {
+                _isWalking = false;
+                _isSprinting = false;
+                _animationBlendMovement = 0f;
+            }
+        }
         private void OnTriggerEnter(Collider collider)
         {
             if (RagdollParts.Contains(collider)) return;
@@ -205,13 +140,14 @@ namespace Mal {
         private void SetRagdollPart()
         {
             Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
-
             foreach(Collider col in colliders)
             {
                 if (col.gameObject != this.gameObject)
+                {
                     col.isTrigger = true;
                     RagdollParts.Remove(this.gameObject.GetComponent<Collider>());
                     RagdollParts.Add(col);
+                }
             }
         } 
         public void TurnOnRagdoll()
