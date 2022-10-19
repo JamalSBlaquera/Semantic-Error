@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,8 +6,9 @@ namespace Mal
     [CreateAssetMenu(fileName = "New State Move", menuName = "Mal/Ability Data/NPC/HandlerIdle")]
     public class HandlerIdle : StateData
     {
-        Enemy enemy;
-        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
+
+
+        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
         }
@@ -25,21 +24,24 @@ namespace Mal
             Character character = characterStateBase.GetCharacter(animator);
             Enemy enemy = characterStateBase.GetEnemy(animator);
 
-            if (enemy.myTarget != null)
-            {
-                character.triggerSpeed = character.WalkSpeed;
-            }
-            else
-            {
-                character.triggerSpeed = 0;
-            }
+            float speed = character.triggerSpeed;
 
-            float Speed = character.triggerSpeed;
+            _characterController.Move(Vector3.zero * Time.deltaTime * speed + new Vector3(0, character._verticalVelocity, 0) * Time.deltaTime);
 
-            character.animationBlendMove(Speed);
-            
-            Vector3 current = character.transform.position;
-            _characterController.Move(current.normalized * Time.deltaTime * Speed + new Vector3(0, character._verticalVelocity, 0) * Time.deltaTime);
+            if (enemy.chasingPlayer)
+            {
+                speed = character.WalkSpeed;
+                character.animationBlendMove(speed);
+            }
+            if (enemy.IsPatrolling)
+            {
+                speed = enemy.WalkSpeed;
+                character.animationBlendMove(speed);
+            }
+              
+
+
+            character.animationBlendMove(speed);
 
             if (character._hasAnimator)
             {

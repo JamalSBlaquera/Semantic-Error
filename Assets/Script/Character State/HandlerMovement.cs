@@ -16,7 +16,7 @@ namespace Mal
         private float _rotationVelocity;
         private float _targetRotation;
 
-        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
+        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetBool("Jump", false);
             animator.SetBool("SprintJump", false);

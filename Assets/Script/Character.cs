@@ -16,7 +16,7 @@ namespace Mal {
             _hasAnimator = TryGetComponent(out _animator);
             _inputManager = GetComponent<InputManager>();
             _characterController = GetComponent<CharacterController>();
-
+            _characterController.slopeLimit = 45.0f;
 
             _jumpingTimeoutDelta = JumpingTimeout;
             _fallingTimeoutDelta = FallingTimeout;

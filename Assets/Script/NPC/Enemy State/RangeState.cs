@@ -119,7 +119,7 @@ namespace Mal
                 new Vector3(transform.position.x, centerOffsite, transform.position.z),
                 stoppingRadius);
         }
-        private void OnTriggerEnter(Collider collision)
+        /*private void OnTriggerEnter(Collider collision)
         {
             if (collision.CompareTag("Player"))
             {
@@ -133,7 +133,7 @@ namespace Mal
             {
                 parent.myTarget = null;
             }
-        }
+        }*/
     }
 }
 

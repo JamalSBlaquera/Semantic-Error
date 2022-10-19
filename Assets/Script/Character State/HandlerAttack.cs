@@ -24,7 +24,7 @@ namespace Mal
         public float ComboEndTime;
         public List<string> colliderNames { get => ColliderNames; set => ColliderNames = value; }
 
-        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
+        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             GameObject obj = Instantiate(Resources.Load("AttackInfo", typeof(GameObject))) as GameObject;
             AttackInfo info = obj.GetComponent<AttackInfo>();

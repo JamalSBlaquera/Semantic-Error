@@ -81,6 +81,7 @@
     <Compile Include="Assets\Script\Intro\LoadIntro.cs" />
     <Compile Include="Assets\Script\NPC\Enemy State\RangeState.cs" />
     <Compile Include="Assets\Script\Player Stat\PlayerStat.cs" />
+    <Compile Include="Assets\Script\Character State\Enemy State\HandlerEnemyPatrolling.cs" />
     <Compile Include="Assets\Script\NPC\Enemy.cs" />
     <Compile Include="Assets\Script\Transitions\FadeTransition.cs" />
     <Compile Include="Assets\Sci Fi Modular Pack\Scripts\CameraController.cs" />

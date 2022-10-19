@@ -10,7 +10,7 @@ namespace Mal
         [Range(0.01f, 1f)]
         public float TrasitionTiming;
 
-        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
+        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
         }

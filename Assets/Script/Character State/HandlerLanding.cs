@@ -7,7 +7,7 @@ namespace Mal
     [CreateAssetMenu(fileName = "New State HandlerLanding", menuName = "Mal/Ability Data/HandlerLanding")]
     public class HandlerLanding : StateData
     {
-        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
+        public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             
         }

@@ -12,7 +12,7 @@ namespace Mal {
         {
             foreach(StateData data in ListAbilityData)
             {
-                data.OnEnter(this, animator, stateInfo);
+                data.OnEnter(this, animator, stateInfo, layerIndex);
             }
         }
         public void UpdateAll(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
