@@ -23,5 +23,5 @@ MonoBehaviour:
   MaxHits: 4
   finishedAttack:
   - {fileID: 0}
-  ComboStartTime: 0.1
+  ComboStartTime: 0.2
   ComboEndTime: 0.8

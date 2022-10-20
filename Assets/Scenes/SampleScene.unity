@@ -1119,7 +1119,7 @@ MonoBehaviour:
   RotationSmoothTime: 0.12
   triggerSpeed: 0
   FallingTimeout: 0.15
-  JumpHeight: 2
+  JumpHeight: 2.5
   JumpSprintHeight: 1
   JumpingTimeout: 0.5
   Gravity: -15

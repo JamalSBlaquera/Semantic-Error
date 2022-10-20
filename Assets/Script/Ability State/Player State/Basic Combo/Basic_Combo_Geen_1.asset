@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   ActionName: Attack
-  StartAttactTime: 0.5
+  StartAttactTime: 0.1
   EndAttackTime: 0.8
   ColliderNames: []
   MustCollide: 1
@@ -22,5 +22,5 @@ MonoBehaviour:
   LethalRange: 0
   MaxHits: 1
   finishedAttack: []
-  ComboStartTime: 0
-  ComboEndTime: 100
+  ComboStartTime: 0.1
+  ComboEndTime: 0.8

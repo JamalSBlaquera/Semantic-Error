@@ -119,14 +119,6 @@ namespace Mal
                         {
                             animator.SetBool(ActionName, true);
                         }
-                        if (character.CompareTag("NPC"))
-                        {
-                            if (RangeState.myInstance.Attack == true)
-                            {
-                                Debug.Log(RangeState.myInstance.Attack);
-                                animator.SetBool(ActionName, true);
-                            }
-                        }
                     }
                 }
             }

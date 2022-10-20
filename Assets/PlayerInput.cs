@@ -70,7 +70,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Jump"",
