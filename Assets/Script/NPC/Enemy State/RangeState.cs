@@ -49,16 +49,16 @@ namespace Mal
         }
         private void FixedUpdate()
         {
-            HanlderTargetRotationCheck();
+           /* HanlderTargetRotationCheck();*/
         }
-        private void HanlderTargetRotationCheck()
+      /*  private void HanlderTargetRotationCheck()
         {
 
             Npc_move = Vector2.zero;
             
             if (parent.myTarget != null)
             {
-               /* if (rotateToPlayer.x < 0.1f)
+               *//* if (rotateToPlayer.x < 0.1f)
                 {
                     Npc_move.x = -1;
                 }
@@ -73,7 +73,7 @@ namespace Mal
                 else
                 {
                     Npc_move.y = 1;
-                }*/
+                }*//*
                 RaycastHit hit;
                 Vector3 rayPositionForward = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                 rotateToPlayer = (parent.myTarget.transform.position - transform.position);
@@ -118,7 +118,7 @@ namespace Mal
             Gizmos.DrawSphere(
                 new Vector3(transform.position.x, centerOffsite, transform.position.z),
                 stoppingRadius);
-        }
+        }*/
         /*private void OnTriggerEnter(Collider collision)
         {
             if (collision.CompareTag("Player"))

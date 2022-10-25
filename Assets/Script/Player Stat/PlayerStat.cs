@@ -21,7 +21,7 @@ namespace Mal
             }
         }
 
-        private Image content;
+        public Image content;
         [SerializeField] private float lerpSpeed;
         /*    [SerializeField] private Text statValue;
         */
@@ -73,6 +73,7 @@ namespace Mal
                 /* statValue.text = currentValue + "/" + myMaxValue;*/
             }
         }
+
 
         private void Start()
         {

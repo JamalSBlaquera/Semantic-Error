@@ -37,6 +37,10 @@ namespace Mal {
         {
             _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
         }
+        public void addDoableJumpForce()
+        {
+            _verticalVelocity = Mathf.Sqrt(DoableJumpHeight * -2f * Gravity);
+        }
         public void addSprintJumpForce()
         {
             _verticalVelocity = Mathf.Sqrt(JumpSprintHeight * -2f * Gravity);
@@ -68,6 +72,7 @@ namespace Mal {
             
             if (_hasAnimator)
                 _animator.SetBool("Grounded", isGrounded);
+                
         }
         private void OnDrawGizmosSelected()
         {

@@ -7,12 +7,6 @@ namespace Mal
     [CreateAssetMenu(fileName = "New State Move", menuName = "Mal/Ability Data/NPC/HandlerFollowState")]
     public class HandlerFollowState : StateData
     {
-        private float currentHorizontalSpeed;
-        private float _animationBlendMove;
-
-        [Header("Steering")]
-        public float stoppingDistance;
-
         public override void OnEnter(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetBool("Jump", false);
@@ -21,52 +15,61 @@ namespace Mal
         }
         public override void UpdateAbility(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            CharacterController _characterController = characterStateBase.GetCharacterController(animator);
-            Character character = characterStateBase.GetCharacter(animator);
             Enemy enemy = characterStateBase.GetEnemy(animator);
 
-            HanlderMovement(character, enemy, _characterController, animator);
+            if (!enemy.IsPatrolling)
+            {
+                ChasingPlayer(enemy, animator);
+            }
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
 
         }
-        private void HanlderMovement(Character character, Enemy enemy, CharacterController _characterController, Animator animator)
+        private void ChasingPlayer(Enemy enemy, Animator animator)
         {
-            float speed = enemy.WalkSpeed;
+            enemy.IsPlayerNear = false;
+            enemy.PlayerLastPosition = Vector3.zero;
+            float distostop = Vector3.Distance(enemy.transform.position, enemy.PlayerPosition);
+            float dis = Vector3.Distance(enemy.transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
-            character.animationBlendMove(enemy.triggerSpeed);
-
-            if (enemy.chasingPlayer)
+            if (enemy.IsPlayerInRange && !enemy.IsCaughtPlayer && distostop >= enemy.Agent.stoppingDistance)
             {
-                ChasingPlayer(character, enemy, _characterController, speed, animator);
+                Debug.Log(false);
+                enemy.triggerSpeed = enemy.WalkSpeed;
+                enemy.Move(enemy.triggerSpeed);
+                enemy.animationBlendMove(enemy.triggerSpeed);
+                enemy.Agent.SetDestination(enemy.PlayerPosition);              
+            } else
+            {
+                if (enemy.WaitTime <= 0 && !enemy.IsCaughtPlayer && dis >= enemy.ViewRadius)
+                {
+                    enemy.IsPatrolling = true;
+                    enemy.IsPlayerNear = false;
+                    enemy.triggerSpeed = enemy.WalkSpeed;
+                    enemy.Move(enemy.triggerSpeed);
+                    enemy.animationBlendMove(enemy.triggerSpeed);
+                    enemy.Agent.SetDestination(enemy.PatrolPointLocation[enemy.CurrentWaypointIndex].position);
+                    enemy.WaitTime = enemy.StartWaitTime;
+                    enemy.TimeToRotate = enemy.StartTimeRotate;
+                } else
+                {
+                    enemy.Stop();
+                    enemy.animationBlendMove(enemy.Agent.speed);
+                    enemy.WaitTime -= Time.deltaTime;
+                }
             }
-
-            if (character._hasAnimator)
+            if (distostop <= enemy.Agent.stoppingDistance)
             {
-                animator.SetFloat("Speed", character._animationBlendMovement);
+                Debug.Log(true);
+                enemy.IsCaughtPlayer = true;
+                enemy.IsPlayerInRange = false;
+                enemy.Stop();
+                enemy.animationBlendMove(enemy.Agent.speed);
             }
-        }
-        private void ChasingPlayer(Character character, Enemy enemy, CharacterController _characterController, float speed, Animator animator)
-        {
-            _characterController.transform.forward = (enemy.myTarget.position - enemy.transform.position).normalized;
-            _characterController.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.myTarget.position, speed * Time.deltaTime);
-
-            float distance = Vector3.Distance(Enemy.myInstance.myTarget.position, character.transform.position);
-
-            if (distance <= stoppingDistance)
+            if (enemy._hasAnimator)
             {
-                animator.SetBool("Attack", true);
-            }
-            else
-            {
-                speed = enemy.WalkSpeed;
-                character.animationBlendMove(speed);
-            }
-            if (enemy.myTarget == null)
-            {
-                speed = 0;
-                character.animationBlendMove(speed);
+                animator.SetFloat("Speed", enemy._animationBlendMovement);
             }
         }        
     }

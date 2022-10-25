@@ -20,94 +20,126 @@ namespace Mal
             }
         }
 
-        public bool PlayerNearby { get => playerNearby; set => playerNearby = value; }
+        public bool IsPlayerNear { get => _isPlayerNear; set => _isPlayerNear = value; }
+        public Vector3 PlayerLastPosition { get => _playerLastPosition; set => _playerLastPosition = value; }
+        public Vector3 PlayerPosition { get => _playerPosition; set => _playerPosition = value; }
 
-        public Transform myTarget;
-        private bool isEnter;
-        
-        
-        [Header("Enemy View")]
-        public bool chasingPlayer;
-        public float viewRadius;
-        public float viewAngle = 90;
-        public LayerMask playerMask;
-        public LayerMask obstacleMask;
-        public Collider[] playerInRange;
-        [Header("Enemy Patrol")]
-        public bool IsPatrolling;
-        private bool playerNearby;
-        public Transform waypoints;                  
-        int currentWaypointIndex;
+        public bool IsCaughtPlayer { get => _isCaughtPlayer; set => _isCaughtPlayer = value; }
+        public NavMeshAgent Agent { get => agent; set => agent = value; }
+        public float WaitTime { get => _WaitTime; set => _WaitTime = value; }
+        public int CurrentWaypointIndex { get => _currentWaypointIndex; set => _currentWaypointIndex = value; }
+        public bool IsPlayerInRange { get => _isPlayerInRange; set => _isPlayerInRange = value; }
+        public float TimeToRotate { get => _TimeToRotate; set => _TimeToRotate = value; }
+        public Transform[] PatrolPointLocation { get => patrolPointLocation; set => patrolPointLocation = value; }
+        public float StartWaitTime { get => startWaitTime; set => startWaitTime = value; }
+        public float StartTimeRotate { get => startTimeRotate; set => startTimeRotate = value; }
+        public bool IsPatrolling { get => _isPatrolling; set => _isPatrolling = value; }
+        public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
+        public float ViewRadius { get => viewRadius; set => viewRadius = value; }        
+       
+        [Header("AI Setting")]
+        [SerializeField]
+        private float viewRadius;
+        [SerializeField]
+        private float angleView;
+        [SerializeField]
+        NavMeshAgent agent;
+        [SerializeField]
+        private float rotationSpeed;
+        [SerializeField]
+        private float startWaitTime = 4;
+        [SerializeField]
+        private float startTimeRotate = 2;
+        [SerializeField]
+        LayerMask playerMask;
+        [SerializeField]
+        LayerMask obstacleMask;
+        [SerializeField]
+        Collider[] playerInRange;
 
-        public Vector3 playerLastPosition = Vector3.zero;    
-        public Vector3 m_PlayerPosition;
+        [SerializeField]
+        private Transform[] patrolPointLocation;
+        int _currentWaypointIndex;
 
-        [Header("Timer")]
-        public float startWaitTime = 4;
-        public float timeToRotate = 2;
-        public float m_WaitTime;
-        public float m_TimeToRotate;
+        bool _isPlayerInRange;
+        bool _isPatrolling;
+        bool _isPlayerNear;
+        bool _isCaughtPlayer;
+        //timer     
+        public float _WaitTime;
+        public float _TimeToRotate;
 
-        protected override void Start()
+
+        Vector3 _playerPosition;
+        Vector3 _playerLastPosition = Vector3.zero;
+
+        protected override void Awake()
         {
-            IsPatrolling = true;
-            currentWaypointIndex = 0;
-            base.Start();
+            _isPlayerInRange = false;
+            _isPatrolling = true;
+            _isPlayerNear = false;
+            _isCaughtPlayer = false;
+            _TimeToRotate = startTimeRotate;
+            _WaitTime = 0;
+            _currentWaypointIndex = 1;
+            _playerPosition = Vector3.zero;
+            base.Awake();
         }
+
         protected override void Update()
         {
-            enemyEnviroView();
+            EnviromentView();
             base.Update();
-		}
-
-        private void enemyEnviroView()
+        }
+        void EnviromentView()
         {
             playerInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
 
             for (int i = 0; i < playerInRange.Length; i++)
             {
-                Transform targetPlayer = playerInRange[i].transform;
-                Vector3 DirToPlayer = (targetPlayer.position - transform.position).normalized;
-                if (Vector3.Angle(transform.forward, DirToPlayer) < viewAngle / 2)
-                {
-                    myTarget = playerInRange[i].transform;
-                    float disToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
+                Transform player = playerInRange[i].transform;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.position - transform.position), rotationSpeed * Time.deltaTime);
+                Vector3 toPlayer = (player.position - transform.position).normalized;
 
-                    if (!Physics.Raycast(transform.position, DirToPlayer, disToPlayer, obstacleMask))
+                float checkDistance = Vector3.Distance(transform.position, player.position);
+
+                if (Vector3.Angle(transform.forward, toPlayer) < angleView / 2)
+                {
+                    if (!Physics.Raycast(transform.position, toPlayer, checkDistance, obstacleMask))
                     {
-                        // see the player on enemy range view
-                        chasingPlayer = true;
-                        IsPatrolling = false;
+                        _isPlayerInRange = true;
+                        _isPatrolling = false;
+                        _isCaughtPlayer = false;
                     } else
                     {
-                        // if the player is behind by the object and lose the player
-                        chasingPlayer = false;
+                        _isPlayerInRange = false;
                     }
                 } else
                 {
-                    myTarget = null;
+                    _isPatrolling = false;
+                    animationBlendMove(0);
+                    _animator.SetFloat("Speed", _animationBlendMovement);
                 }
-                if (Vector3.Distance(transform.position, targetPlayer.position) > viewRadius)
+                if (checkDistance > viewRadius)
                 {
-                    chasingPlayer = false;
-                }
-                if (chasingPlayer)
+                    _isPlayerInRange = false;
+                } 
+                if (_isPlayerInRange)
                 {
-                    m_PlayerPosition = targetPlayer.transform.position;
+                    _playerPosition = player.transform.position;
                 }
             }
         }
-        
-        private void SetDestination(Vector3 Waypoint) {
-            transform.position = Vector3.MoveTowards(transform.position, Waypoint, 2 * Time.deltaTime);
-        } 
-
-        
-        /*public void NextPoint()
+        public void Move(float speed)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-            SetDestination(waypoints[currentWaypointIndex].position);
-        }*/
+            agent.isStopped = false;
+            agent.speed = speed;
+        }
+        public void Stop()
+        {
+            agent.isStopped = true;
+            agent.speed = 0;
+        }
     }
 }
 

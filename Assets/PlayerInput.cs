@@ -65,7 +65,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Attack"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""de1d6e33-7086-422d-a895-b15748351f83"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -79,7 +79,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(pressPoint=0.1)"",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""StartLoad"",
@@ -198,7 +198,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""1b97dff2-e3c8-423d-b262-0c8e9cf81650"",
                     ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sprint"",
@@ -251,6 +251,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""8ed1fc66-ea17-4e98-8635-f3a0353a219d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""06a93299-5ad6-4e88-8cd0-22fdc9d04449"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
@@ -286,7 +297,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""67cfd491-6a5d-4b6d-a52d-e76b3fac62c6"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
@@ -297,6 +308,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""4988a170-a8d5-4866-b89e-fbf9ef1fcdfc"",
                     ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0624cea1-fcfc-48bd-9c83-37634ae5e339"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",

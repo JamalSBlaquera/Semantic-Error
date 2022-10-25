@@ -15,7 +15,7 @@ MonoBehaviour:
   debug: 0
   ActionName: Attack
   StartAttactTime: 0.1
-  EndAttackTime: 0.8
+  EndAttackTime: 0.9
   ColliderNames: []
   MustCollide: 1
   MustFaceAttater: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   MaxHits: 1
   finishedAttack: []
   ComboStartTime: 0.1
-  ComboEndTime: 0.8
+  ComboEndTime: 0.9

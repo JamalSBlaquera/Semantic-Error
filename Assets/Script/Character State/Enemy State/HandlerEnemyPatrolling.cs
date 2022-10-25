@@ -15,14 +15,104 @@ namespace Mal
             Character character = characterStateBase.GetCharacter(animator);
             Enemy enemy = characterStateBase.GetEnemy(animator);
 
-            enemyPatroling(enemy, animator, _characterController);
+            if (enemy.IsPatrolling)
+            {
+                enemyPatroling(enemy, animator);
+            }
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
 
         }
-        private void enemyPatroling(Enemy enemy, Animator animator, CharacterController _characterController)
+        private void enemyPatroling(Enemy enemy, Animator animator)
         {
+            if (enemy.IsPlayerNear)
+            {
+                if (enemy.TimeToRotate <= 0)
+                {
+                    enemy.triggerSpeed = enemy.WalkSpeed;
+                    enemy.Move(enemy.triggerSpeed);
+                    LookingPlayer(enemy.PlayerLastPosition, enemy, animator);
+                    
+                } else
+                {
+                    
+                    enemy.Stop();
+                    enemy.animationBlendMove(enemy.Agent.speed);
+                    if (enemy._hasAnimator)
+                    {
+                        animator.SetFloat("Speed", enemy._animationBlendMovement);
+                    }
+                    enemy.TimeToRotate -= Time.deltaTime;
+                }
+            } else
+            {
+                Transform waypoint = enemy.PatrolPointLocation[enemy.CurrentWaypointIndex];
+                enemy.IsPlayerNear = false;
+                enemy.PlayerLastPosition = Vector3.zero;
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(waypoint.position - enemy.transform.position), enemy.RotationSpeed * Time.deltaTime);
+                enemy.Agent.SetDestination(waypoint.position);
+                enemy.animationBlendMove(enemy.Agent.speed);
+                if (enemy.Agent.remainingDistance <= enemy.Agent.stoppingDistance)
+                {
+                    if (enemy.WaitTime <= 0)
+                    {
+                        Debug.Log(true);
+                        NextPoint(enemy);
+                        enemy.triggerSpeed = enemy.WalkSpeed;
+                        enemy.Move(enemy.triggerSpeed);
+                        enemy.animationBlendMove(enemy.Agent.speed);
+                        enemy.WaitTime = enemy.StartWaitTime;
+                    } else
+                    {
+                        Debug.Log(false);
+                        enemy.Stop();
+                        enemy.animationBlendMove(enemy.Agent.speed);
+                        enemy.WaitTime -= Time.deltaTime;
+                    }
+                }
+                if (enemy._hasAnimator)
+                {
+                    animator.SetFloat("Speed", enemy._animationBlendMovement);
+                }
+            }
+        }
+        public void LookingPlayer(Vector3 player, Enemy enemy, Animator animator)
+        {
+            enemy.animationBlendMove(enemy.triggerSpeed);
+            enemy.Agent.SetDestination(player);
+            if (Vector3.Distance(enemy.transform.position, player) <= 0.3)
+            {
+                if (enemy.WaitTime <= 0)
+                {
+                    enemy.IsPlayerNear = false;
+                    enemy.triggerSpeed = enemy.WalkSpeed;
+                    enemy.Move(enemy.triggerSpeed);
+                    enemy.Agent.SetDestination(enemy.PatrolPointLocation[enemy.CurrentWaypointIndex].position);
+                    enemy.WaitTime = enemy.StartWaitTime;
+                    enemy.TimeToRotate = enemy.StartTimeRotate;
+                }
+                else
+                {
+                    enemy.Stop();
+                    enemy.animationBlendMove(enemy.Agent.speed);
+                    enemy.WaitTime -= Time.deltaTime;
+                }
+            }
+            if (enemy._hasAnimator)
+            {
+                animator.SetFloat("Speed", enemy._animationBlendMovement);
+            }
+        }
+        public void NextPoint(Enemy enemy)
+        {
+            enemy.CurrentWaypointIndex = (enemy.CurrentWaypointIndex + 1) % enemy.PatrolPointLocation.Length;
+            enemy.Agent.SetDestination(enemy.PatrolPointLocation[enemy.CurrentWaypointIndex].position);
+        }
+    }
+}
+
+/*
             float speed = enemy.WalkSpeed;
             if (enemy.IsPatrolling)
             {
@@ -42,7 +132,8 @@ namespace Mal
                 Vector3 directionForward = enemy.transform.TransformDirection(Vector3.forward);
                 _characterController.Move(directionForward * speed * Time.deltaTime);
 
-                float distance = Vector3.Distance(enemy.waypoints.position, enemy.transform.position);
+                
+                distance = Vector3.Distance(enemy.waypoints.position, enemy.transform.position);
 
                 if (distance <= 2)
                 {
@@ -56,12 +147,4 @@ namespace Mal
                 {
                     animator.SetFloat("Speed", enemy._animationBlendMovement);
                 }
-            }
-            
-        }
-        public void LookingPlayer(Vector3 player)
-        {
-
-        }
-    }
-}
+            }*/

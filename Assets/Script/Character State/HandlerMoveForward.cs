@@ -31,8 +31,7 @@ namespace Mal
         {
             Vector3 directionForward = character.myTransform.TransformDirection(Vector3.forward);
 
-            characterController.Move(directionForward * addMoveForward * SpeedCurve.Evaluate(stateInfo.normalizedTime ) * Time.deltaTime );
-
+            characterController.SimpleMove(directionForward * addMoveForward * SpeedCurve.Evaluate(stateInfo.normalizedTime));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Mal
 
         public override void UpdateAbility(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            CharacterController _characterController = characterStateBase.GetCharacterController(animator);
+            /*CharacterController _characterController = characterStateBase.GetCharacterController(animator);
             Character character = characterStateBase.GetCharacter(animator);
             Enemy enemy = characterStateBase.GetEnemy(animator);
 
@@ -46,7 +46,7 @@ namespace Mal
             if (character._hasAnimator)
             {
                 animator.SetFloat("Speed", character._animationBlendMovement);
-            }
+            }*/
         }
     }
 }

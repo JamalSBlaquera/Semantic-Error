@@ -10,8 +10,6 @@ namespace Mal
         [Header("Attack State")]
         public bool debug;
         public string ActionName;
-        public float StartAttactTime;
-        public float EndAttackTime;
         public List<string> ColliderNames = new List<string>();
         public bool MustCollide;
         public bool MustFaceAttater;
@@ -33,6 +31,7 @@ namespace Mal
 
             if (!AttackManager.Instance.CurrentAttacks.Contains(info))
                 AttackManager.Instance.CurrentAttacks.Add(info);
+            animator.SetBool(ActionName, false);
         }
         public override void UpdateAbility(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -41,11 +40,9 @@ namespace Mal
             DeregisterAttack(characterStateBase, animator, stateInfo);
             
         }
-
-        
         private void RegisterAttack(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (StartAttactTime <= stateInfo.normalizedTime && EndAttackTime > stateInfo.normalizedTime)
+            if (ComboStartTime <= stateInfo.normalizedTime && ComboEndTime > stateInfo.normalizedTime)
             {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttacks)
                 {
@@ -66,7 +63,7 @@ namespace Mal
         
         private void DeregisterAttack(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (stateInfo.normalizedTime >= EndAttackTime)
+            if (stateInfo.normalizedTime >= ComboEndTime)
             {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttacks)
                 {
@@ -106,7 +103,7 @@ namespace Mal
             }
         }
 
-        private void HandlerCheckCombo(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public void HandlerCheckCombo(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             Character character = characterStateBase.GetCharacter(animator);
             if (stateInfo.normalizedTime >= ComboStartTime)
@@ -117,6 +114,7 @@ namespace Mal
                     {
                         if (character.CompareTag("Player"))
                         {
+                            Debug.Log(true);
                             animator.SetBool(ActionName, true);
                         }
                     }

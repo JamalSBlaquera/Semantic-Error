@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939be585baeabdf4db5c3411402c1ad4, type: 3}
   m_Name: JumpPlayerAbility
   m_EditorClassIdentifier: 
-  Duration: 0
+  JumpStartTime: 0.2
+  JumpEndTime: 0.9

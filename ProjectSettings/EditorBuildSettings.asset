@@ -35,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build Scenes/10Email.unity
     guid: bc94048deca6c9e44bf19fde174fd93e
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 951f2c12d33e61b4dab3834c2429a891
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 835451398bb53db48b696ad4c45b2627, type: 2}

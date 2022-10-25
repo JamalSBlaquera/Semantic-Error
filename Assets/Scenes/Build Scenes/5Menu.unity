@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f243c6ef148f26f4e9608697591cae79, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1559,7 +1559,7 @@ RectTransform:
   m_Children:
   - {fileID: 1795570868}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2859,7 +2859,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 541586216}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 590654384}
+        m_TargetAssemblyTypeName: Mal.FadeTransition, Assembly-CSharp
+        m_MethodName: FadeToScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &548797558 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3854368263368897671, guid: 9242f197389981e4a9532af8e67d3eed, type: 3}
@@ -3363,8 +3375,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1026692615}
   m_HandleRect: {fileID: 1026692614}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.18942289
+  m_Value: -0.000000059430242
+  m_Size: 0.18940811
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4222,7 +4234,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832566359
 GameObject:
@@ -4633,19 +4645,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 857179422}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 590654384}
-        m_TargetAssemblyTypeName: Mal.FadeTransition, Assembly-CSharp
-        m_MethodName: FadeToScene
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 9
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &865641726
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,7 +5165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -960, y: 361.5}
+  m_AnchoredPosition: {x: -959.9997, y: 361.5}
   m_SizeDelta: {x: 0, y: 737.7578}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &939128225
@@ -5583,7 +5583,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5159936187374258259, guid: a58c2e5e14e2ad04a8db5fb4970fd18d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5159936187374258259, guid: a58c2e5e14e2ad04a8db5fb4970fd18d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5631,7 +5631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159936187374258269, guid: a58c2e5e14e2ad04a8db5fb4970fd18d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a58c2e5e14e2ad04a8db5fb4970fd18d, type: 3}
@@ -9802,7 +9802,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -52.68, z: 0}
 --- !u!1 &1839041028
 GameObject:

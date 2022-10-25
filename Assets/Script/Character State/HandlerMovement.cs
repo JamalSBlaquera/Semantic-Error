@@ -30,6 +30,15 @@ namespace Mal
             Enemy enemy = characterStateBase.GetEnemy(animator);
 
             HanlderMovement(character, player, enemy, _characterController, animator);
+
+            if (character.InputAttack)
+            {
+                animator.SetBool("Attack", true);
+            }
+            /*if (player.InputJump)
+            {
+                animator.SetBool("Jump", true);
+            }*/
         }
         public override void OnExit(CharacterStateBase characterStateBase, Animator animator, AnimatorStateInfo stateInfo)
         {
@@ -65,6 +74,7 @@ namespace Mal
             {
                 if (player.InputMove != Vector2.zero)
                 {
+                    FindObjectOfType<AudioManager>().Play("Walk");
                     HandlerRotation(character);
                     targetDerection = Quaternion.Euler(0, moveRotation, 0) * Vector3.forward;
                 }
@@ -75,6 +85,7 @@ namespace Mal
             if (character._hasAnimator)
             {
                 animator.SetFloat("Speed", _animationBlendMove);
+                    
             }
         } 
         private void HandlerRotation(Character character)

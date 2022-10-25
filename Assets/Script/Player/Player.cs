@@ -29,6 +29,7 @@ namespace Mal {
 
         [Header("Character Stats")]
         [SerializeField]
+        private bool isEmpty;
         public PlayerStat _stamina;
         private float initStamina = 100;
 
@@ -46,6 +47,7 @@ namespace Mal {
             cameraManager = FindObjectOfType<CameraManager>();
             myTransform = GetComponent<Transform>();
             base.Awake();
+
         }
 
         protected override void Start()
@@ -74,26 +76,44 @@ namespace Mal {
         }
         private void HalderStamina()
         {
-            if (InputSprint)
+            if (InputSprint && InputMove != Vector2.zero && !isEmpty)
             {
                 triggerSpeed = SprintSpeed;
-                _isSprinting = true;
-                if (!_isSprintJump)
+                if (!_isSprintJump && _isSprinting)
                 {
                     _stamina.myCurrentValue -= 0.5f;
+                }
+                
+                if (_stamina.myCurrentValue <= 40)
+                {
+                    _stamina.content.color = Color.red;
+                    triggerSpeed = 4;
+                }
+                else
+                {
+                    _stamina.content.color = new Color(0f, 0.9920001f, 1f, 1f);
                 }
                 if (_stamina.myCurrentValue == 0)
                 {
                     triggerSpeed = WalkSpeed;
-                    InputSprint = false;
+                    isEmpty = true;
                 }
-            }
-            else
+                
+            } else
             {
+                if (!InputSprint)
+                {
+                    isEmpty = false;
+                }
                 if (_stamina.myCurrentValue != _stamina.myMaxValue)
                 {
-                    _stamina.myCurrentValue += 0.5f;
+                    if (_stamina.myCurrentValue <= 40)
+                        _stamina.content.color = Color.red;
+                    else
+                        _stamina.content.color = new Color(0f, 0.9920001f, 1f, 1f);
                 }
+                _stamina.myCurrentValue += 0.5f;
+                
             }
         }
 

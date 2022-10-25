@@ -53,7 +53,11 @@ namespace Mal
                 playerInput.PlayerMovement.Movement.started += onMoveInput;
                 playerInput.PlayerMovement.Movement.performed += onMoveInput;
                 playerInput.PlayerMovement.Movement.canceled += onMoveInput;
+
+                playerInput.PlayerMovement.Sprint.started += onSprint;
                 playerInput.PlayerMovement.Sprint.performed += onSprint;
+                playerInput.PlayerMovement.Sprint.canceled += onSprint;
+
                 playerInput.PlayerMovement.File.performed += OpenFile;
                 playerInput.PlayerMovement.DebugAdd.performed += onDebugAdd;
                 playerInput.PlayerMovement.DebugSub.performed += onDebugSub;
