@@ -114,8 +114,9 @@ namespace Mal
                     {
                         if (character.CompareTag("Player"))
                         {
-                            Debug.Log(true);
                             animator.SetBool(ActionName, true);
+                            animator.SetFloat("Action", 1);
+                            animator.SetFloat("Equip", 1);
                         }
                     }
                 }

@@ -29,6 +29,7 @@ namespace Mal
         [SerializeField] public bool _isWalking;
         [SerializeField] public bool _isSprinting;
         [SerializeField] public bool _isSprintJump;
+        [SerializeField] public bool _isLanding = false;
 
         [Header("Player Movetion")]
         public float WalkSpeed;

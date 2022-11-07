@@ -68,6 +68,7 @@
     <Compile Include="Assets\Script\Character State\Enemy State\HandlerFollowState.cs" />
     <Compile Include="Assets\Script\Audio\Sound.cs" />
     <Compile Include="Assets\Script\Settiing\SettingManager.cs" />
+    <Compile Include="Assets\Script\Character State\HandlerEquip.cs" />
     <Compile Include="Assets\Script\Character State\HandlerAttack.cs" />
     <Compile Include="Assets\Script\Transitions\Transition.cs" />
     <Compile Include="Assets\Script\Character State\HandlerMovementNPC.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Script\Character State\HandlerLanding.cs" />
     <Compile Include="Assets\Script\Joystick\FixedJoystick.cs" />
     <Compile Include="Assets\Script\Character State\HandlerJump.cs" />
+    <Compile Include="Assets\Script\Manager\PanelManager.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\StateData.cs" />
     <Compile Include="Assets\Script\Joystick\Joystick.cs" />
@@ -97,7 +99,6 @@
     <Compile Include="Assets\RobotSphere\Assets\Scripts\RobotFreeAnim.cs" />
     <Compile Include="Assets\Script\Character.cs" />
     <Compile Include="Assets\Script\CameraViewportHandler.cs" />
-    <Compile Include="Assets\Script\Character State\HandlerWe.cs" />
     <Compile Include="Assets\Script\AttackInfo\Resources\AttackInfo.cs" />
   </ItemGroup>
   <ItemGroup>

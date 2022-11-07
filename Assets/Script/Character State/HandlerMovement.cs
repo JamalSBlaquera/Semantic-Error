@@ -55,10 +55,13 @@ namespace Mal
             {
                 character._isSprinting = true;
                 character._isWalking = false;
+                FindObjectOfType<AudioManager>().Play("Run");
+
             }
             else if (_animationBlendMove > 0.1f)
             {
                 character._isWalking = true;
+                FindObjectOfType<AudioManager>().Play("Walk");
                 character._isSprinting = false;
             }
             else
@@ -74,7 +77,6 @@ namespace Mal
             {
                 if (player.InputMove != Vector2.zero)
                 {
-                    FindObjectOfType<AudioManager>().Play("Walk");
                     HandlerRotation(character);
                     targetDerection = Quaternion.Euler(0, moveRotation, 0) * Vector3.forward;
                 }

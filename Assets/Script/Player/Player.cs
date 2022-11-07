@@ -47,7 +47,7 @@ namespace Mal {
             cameraManager = FindObjectOfType<CameraManager>();
             myTransform = GetComponent<Transform>();
             base.Awake();
-
+            AudioManager.Initialize();
         }
 
         protected override void Start()

@@ -69,7 +69,13 @@ namespace Mal {
                 Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z + i / 5 - .18f);
                 isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
             }
-            
+            if (_isLanding)
+            {
+                if (isGrounded)
+                {
+                    FindObjectOfType<AudioManager>().Play("Land");
+                }
+            }
             if (_hasAnimator)
                 _animator.SetBool("Grounded", isGrounded);
                 
@@ -79,7 +85,9 @@ namespace Mal {
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-            if (isGrounded) Gizmos.color = transparentGreen;
+            if (isGrounded) {
+                Gizmos.color = transparentGreen;
+            }
             else Gizmos.color = transparentRed;
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             /*Gizmos.DrawSphere(

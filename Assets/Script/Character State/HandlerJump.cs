@@ -30,6 +30,7 @@ namespace Mal {
         {
             if (character.isGrounded)
             {
+                character._isLanding = false;
                 character._fallingTimeoutDelta = character.FallingTimeout;
 
                 if (character._verticalVelocity < 0.0f) character._verticalVelocity = -2f;
@@ -70,6 +71,7 @@ namespace Mal {
                         if (character._hasAnimator)
                         {
                             animator.SetBool("FreeFall", true);
+                            character._isLanding = true;
                         }
                     }
                 }
